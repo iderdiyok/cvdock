@@ -1,0 +1,12 @@
+$white: #fffffe;
+$black: #252525;
+$light-blue:#009BE1;
+$medium-blue: #0A5DC5;
+$dark-blue: #233964;
+$text: $dark-blue;
+$light-grey: #f5f5f5;
+
+:root {
+  --link-color: #{$medium-blue};
+  --hover-color: #{$light-blue};
+}

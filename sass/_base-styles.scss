@@ -1,0 +1,44 @@
+@use 'colors' as *;
+
+.d-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 2em;
+  }
+  
+  .button-box{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    font-size: 22px;
+    font-weight: 600;
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: $medium-blue;
+    box-shadow: 5px 12px 30px -10px $dark-blue;
+    transition: all .3s ease-in-out;
+    &:hover{
+        transform: scale(.99);
+        box-shadow: 5px 12px 30px -5px $dark-blue;
+    }
+    &__link{
+        color: $white;
+        text-align: center;
+        text-decoration: unset;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        &:hover{
+            color: $white;
+        }
+    }
+  }
+  .next-step{
+    margin-top: 3em;
+      margin-bottom: 3em;
+      display: flex;
+      justify-content: center;
+  }

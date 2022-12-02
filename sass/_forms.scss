@@ -1,0 +1,152 @@
+@use 'colors' as *;
+
+.form-editor{
+    width: 80%;
+    margin: 1em auto;
+    padding: 2em 3em 4em 3em;
+    border-radius: 4px;
+    background: $white;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);    
+    &__header{
+        margin-bottom: 4em;
+        hr{
+        float: left;
+        display: inline;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid $light-blue;
+        }
+    }
+    &__content{
+        margin-top: 1em;
+        &__first-line{
+            display: grid;
+            grid-template-columns: .8fr 3fr;
+            &--avatar{
+                padding: 10px;
+                height: 152px;
+                width: 152px;
+                background: $light-grey;
+                border-radius: 3px;
+                border: 2px dotted $dark-blue;
+                transition: all 200ms ease-in-out;
+                &-box{
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 1.7em;
+                    svg{
+                        font-size: 2.5em;
+                        margin-bottom: .2em;
+                    }
+                    span{font-size: .9em;}
+                }
+            }
+        }
+        &__grid--col-2{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+        &__grid--col-3{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1em;
+        }
+        &__input-label-flex{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            input, select{
+                width: 100%;
+                height: 48px;
+                margin: .5em 0;
+                padding: 0 14px 1px;
+                background-color: $white;
+                border: 2px solid #eaeaea;
+                border-radius: 3px;
+                font-size: 16px;
+                &:focus{
+                    outline-color: $light-blue;
+                    border: 1px solid $light-blue;
+                }
+            }
+        }
+        &__text-area{
+            margin: 1em 0 4em 0;
+            cursor:text;
+            .form-editor__content__input-label-flex > label{
+                margin-bottom: 1em;
+            }
+        }
+        &__function-buttons--flex-end{
+            display: flex;
+            justify-content: end;
+        }
+        
+    }
+}
+.remove-button{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    gap: 0.4em;
+    padding: 0.2em 1.2em;
+    color: crimson;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+    &:hover, &:focus{
+        background-color: crimson;
+         color: #eaeaea;
+    }
+}
+
+.add-new-item-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 0.7em;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    font-size: 18px;
+    color: $medium-blue;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    svg{
+        font-size: 1.5em;
+    }
+    &:hover, &:focus{
+        background-color: $medium-blue;
+        color: #eaeaea;
+    }
+}
+.education, .job, .skill, .language{
+    hr{
+        margin: 1em 0 2em 0;
+    }
+}
+.skills, .languages, .hobbys{
+    color: $white;
+    padding: 1em;
+    margin-bottom: 2em;
+    cursor: pointer;
+}
+.skills{
+    background: $light-blue;
+}
+.languages{
+    background: $medium-blue;
+}
+.hobbys{
+    background: $dark-blue;
+    .ql-toolbar, .ql-snow, .ql-content{
+        background-color: $white;
+    }
+    .ql-editor{
+        color: black;
+    }
+}

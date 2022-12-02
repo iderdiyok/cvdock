@@ -1,0 +1,109 @@
+@use 'colors' as *;
+
+
+.progress-bar, .progress-bar__bar {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.progress-bar__button .progress-bar__label {
+    color: $dark-blue;
+    position: absolute;
+    bottom: -18px;
+    font-size: 14px;
+    margin: 0 0 0 -35px;
+    padding: 0;
+    font-weight: 500;
+    overflow: hidden;
+    min-width: 110px;
+    text-align: center;
+    letter-spacing: .02em;
+}
+
+.progress-bar{
+    text-align: center;
+    color: #4c4c4c;
+    height: 75px;
+    @media (max-width: 1000px) {
+        display: none;
+        }
+    &__bar{
+        position: relative;
+        max-width: 450px;
+        background: $light-blue;
+        height: 8px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+        box-shadow: 0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+    }
+    &__filler {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 8px;
+        background: $medium-blue;
+        border-radius: 5px;
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+        -webkit-box-shadow: 0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+        box-shadow: 0 7px 14px 0 rgb(59 65 94 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
+    }
+    &__buttons {
+        display: inline-block;
+        position: relative;
+        top: -30px;
+        left: -30em;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        max-width: 500px;
+    }
+    &__button {
+        position: absolute;
+        text-align: center;
+        top: 3px;
+        border: none;
+        outline: none;
+        background: none;
+        opacity: 1;
+        cursor: pointer;
+        -webkit-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        &--personal {
+            left: 10px;
+        }
+        &--education {
+            left: 31%;
+            margin-left: -21px;
+        }
+        &--job {
+            left: 60%;
+            margin-left: -21px;
+        }
+        &--skills {
+            right: 10px;
+        }
+        &:disabled{
+            opacity: 1;
+        }
+        
+    }
+    &__icon {
+        color: $white;
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        height: 38px;
+        width: 38px;
+        background: $light-blue;
+        -webkit-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        &--active{background: $medium-blue;}
+        svg{
+            padding: .5em;
+        }
+    }
+}
