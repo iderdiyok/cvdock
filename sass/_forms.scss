@@ -30,7 +30,7 @@
                 border-radius: 3px;
                 border: 2px dotted $dark-blue;
                 transition: all 200ms ease-in-out;
-                &-box{
+                &-box label{
                     cursor: pointer;
                     display: flex;
                     flex-direction: column;
@@ -41,6 +41,7 @@
                         margin-bottom: .2em;
                     }
                     span{font-size: .9em;}
+                    img{width: 100%;}
                 }
             }
         }
@@ -134,6 +135,7 @@
     padding: 1em;
     margin-bottom: 2em;
     cursor: pointer;
+    transition: all .5s ease-in-out;
 }
 .skills{
     background: $light-blue;
@@ -149,4 +151,7 @@
     .ql-editor{
         color: black;
     }
+}
+.languages-list{
+    transition: all 5s ease-in-out;
 }

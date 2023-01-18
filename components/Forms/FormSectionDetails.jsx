@@ -13,7 +13,7 @@ export default function FormSection({
   singleData,
 }) {
   const [currentData, updateData] = useState({});
-
+// console.log(currentData);
   useEffect(() => updateData(singleData), []);
 
   const { quill, quillRef } = useQuill({
@@ -27,7 +27,7 @@ export default function FormSection({
 
   useEffect(() => {
     if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
+      quill.once("text-change", (delta, oldDelta, source) => {
         updateData({
           ...currentData,
           description: quillRef.current.firstChild.innerHTML,
@@ -49,10 +49,15 @@ export default function FormSection({
     updateCurrentDataList(newList);
   }, [currentData]);
 
-  useEffect(() => {
-    console.log(currentData);
-  }, [currentData]);
-
+  if(currentData.description && quillRef.current.firstChild){
+    quillRef.current.firstChild.innerHTML = currentData.description
+  }
+  // useEffect(() => {
+  //   console.log(currentData.description);
+  //   if(currentData.description){
+  //     quillRef.current.firstChild.innerHTML = currentData.description
+  //   }
+  // }, [])
   return (
     <section className="form-editor__content">
       <div className="form-editor__content__grid--col-2">
@@ -81,7 +86,7 @@ export default function FormSection({
           <input
             type="text"
             id={field1_id}
-            value={currentData?.field1_id}
+            value={field1_id === "position" ? currentData.position : currentData.qualifikation}
             onChange={handleChange}
           />
         </div>
@@ -100,7 +105,7 @@ export default function FormSection({
         <input
           type="text"
           id={field2_id}
-          value={currentData?.field2_id}
+          value={field2_id === "institut" ? currentData.institut : currentData.unternehmen}
           onChange={handleChange}
         />
       </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 
-import FormSectionDetails from "@/components/FormSectionDetails";
+import FormSectionDetails from "@/components/Forms/FormSectionDetails";
 
 const title = "Berufserfahrungen";
 

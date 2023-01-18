@@ -1,0 +1,55 @@
+/* cvdock-loading */
+@-webkit-keyframes cvdock-loading {
+    0% {
+      -webkit-transform: rotateX(-90deg);
+              transform: rotateX(-90deg); }
+    50%,
+    75% {
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0); }
+    100% {
+      opacity: 0;
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0); } }
+  @keyframes cvdock-loading {
+    0% {
+      -webkit-transform: rotateX(-90deg);
+              transform: rotateX(-90deg); }
+    50%,
+    75% {
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0); }
+    100% {
+      opacity: 0;
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0); } }
+  
+  .cvdock-loading {
+    display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          ". . a"
+          ". b aa"
+          "c bb aaa";
+          height: 260px;
+    width: 260px;
+    margin: 15% auto;
+  }
+    .cvdock-loading div {
+      -webkit-animation: cvdock-loading 1.5s calc(var(--delay) * 1s) infinite backwards;
+      animation: cvdock-loading 1.5s calc(var(--delay) * 1s) infinite backwards;
+      background-color: #0A5DC5; }
+      .a { grid-area: a; --delay: 0.1;}
+      
+      .aa { grid-area: aa; --delay: 0.2;}
+      
+      .aaa { grid-area: aaa; --delay: 0.3;}
+      
+      .b { grid-area: b; --delay: 0.4;}
+      
+      .bb { grid-area: bb; --delay: 0.5;}
+      
+      .c { grid-area: c; --delay: 0.6;}
