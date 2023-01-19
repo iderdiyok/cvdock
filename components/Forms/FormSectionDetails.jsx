@@ -13,28 +13,38 @@ export default function FormSection({
   singleData,
 }) {
   const [currentData, updateData] = useState({});
-// console.log(currentData);
   useEffect(() => updateData(singleData), []);
-
-  const { quill, quillRef } = useQuill({
-    theme,
-    modules,
-    formats,
-  });
 
   const field1_id = field1.toLowerCase();
   const field2_id = field2.toLowerCase();
 
+  const { quill, quillRef } = useQuill({
+    theme,
+    modules: {
+      toolbar: [],
+      clipboard: {
+          matchVisual: false,
+      }
+    },
+    formats,
+  });
+
+  useEffect(() => {
+    if(quillRef.current && currentData.description){
+      quillRef.current.setContents(quill.clipboard?.convert(currentData.description))
+    }
+  }, [quillRef.current, currentData.description])
+
   useEffect(() => {
     if (quill) {
-      quill.once("text-change", (delta, oldDelta, source) => {
+      quill.on("text-change", (delta, oldDelta, source) => {
         updateData({
           ...currentData,
-          description: quillRef.current.firstChild.innerHTML,
+          description: JSON.stringify(quill.getContents().ops)
         });
       });
     }
-  }, [currentData, quill, quillRef]);
+  }, [currentData, quill]);
 
   const handleChange = (e) => {
     updateData({
@@ -47,17 +57,14 @@ export default function FormSection({
     const newList = [...currentDataList];
     newList[index] = currentData;
     updateCurrentDataList(newList);
-  }, [currentData]);
+  }, [currentData, index]);
 
-  if(currentData.description && quillRef.current.firstChild){
-    quillRef.current.firstChild.innerHTML = currentData.description
-  }
   // useEffect(() => {
-  //   console.log(currentData.description);
-  //   if(currentData.description){
-  //     quillRef.current.firstChild.innerHTML = currentData.description
+  //   if(currentData.description && quill){
+  //     quill.setContents(JSON.parse(currentData.description))
   //   }
-  // }, [])
+  // }, [currentData.description, quill])
+
   return (
     <section className="form-editor__content">
       <div className="form-editor__content__grid--col-2">
@@ -86,7 +93,7 @@ export default function FormSection({
           <input
             type="text"
             id={field1_id}
-            value={field1_id === "position" ? currentData.position : currentData.qualifikation}
+            value={currentData[field1_id]}
             onChange={handleChange}
           />
         </div>
@@ -105,7 +112,7 @@ export default function FormSection({
         <input
           type="text"
           id={field2_id}
-          value={field2_id === "institut" ? currentData.institut : currentData.unternehmen}
+          value={currentData[field2_id]}
           onChange={handleChange}
         />
       </div>

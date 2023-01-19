@@ -23,7 +23,7 @@ export default function EducationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("educationDataList", JSON.stringify(educationList));
+    localStorage.setItem("educationDataList", JSON.stringify([...educationList]));
     router.push("/builder/job");
   };
   return (
@@ -48,7 +48,7 @@ export default function EducationForm() {
                 <>
                   <div className="form-editor__content__function-buttons--flex-end">
                     <button
-                      onClick={handleEducationRemove}
+                      onClick={() => handleEducationRemove(index)}
                       id="remove-button"
                       className="remove-button"
                     >
