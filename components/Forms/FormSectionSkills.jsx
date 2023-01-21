@@ -1,31 +1,71 @@
-export default function FormSection({ fieldName }) {
-  const skillsLevels = [
-    { value: "0", option: "Nicht anzeigen" },
-    { value: "25", option: "Anfänger" },
-    { value: "50", option: "Qualifiziert" },
-    { value: "75", option: "Erfahren" },
-    { value: "100", option: "Experte" },
-  ];
+import { useState } from "react";
+import { useToggle } from "@/hooks/useToggle";
+import { Icon } from "@iconify/react";
+import SkillList from "./SkillList";
+
+const angleUpIcon = <Icon icon="fa6-solid:angle-up" />;
+const angleDownIcon = <Icon icon="fa6-solid:angle-down" />;
+
+
+
+export default function FormSectionSkills({ skillList, setSkillList }) {
+  const [skillsVisible, toggleSkillsVisible] = useToggle(true);
+
+  const handleSkillRemove = (index) => {
+    const list = [...skillList];
+    list.splice(index, 1);
+    setSkillList(list);
+    };
+  
+    const handleSkillAdd = () => {
+    setSkillList([...skillList, []]);
+    };
+
   return (
-    <section className="form-editor__content">
-      <div className="form-editor__content__skills">
-        <div className="form-editor__content__grid--col-2">
-          <div className="form-editor__content__input-label-flex">
-            <label htmlFor="start-date">Skill</label>
-            <input type="text" id="start-date" />
-          </div>
-          <div className="form-editor__content__input-label-flex">
-            <label htmlFor="level">Level</label>
-            <select class="form-select-custom" id="level">
-              {skillsLevels.map(({ value, option }) => (
-                <option value={value} key={value}>
-                  {option}
-                </option>
+    <div className="skills">
+          <h3 onClick={toggleSkillsVisible}>
+            Skills {skillsVisible ? angleUpIcon : angleDownIcon}
+          </h3>
+          {skillsVisible && (
+            <div className="skill-list">
+              {skillList.map((singleSkill, index) => (
+                <div className="skill" key={index}>
+                   <SkillList 
+                      index={index}
+                      skillList={skillList}
+                      setSkillList={setSkillList}
+                      singleSkillData={singleSkill} 
+                    />
+                  {skillList.length !== 1 && (
+                    <>
+                      <div className="form-editor__content__function-buttons--flex-end">
+                        <button
+                          onClick={handleSkillRemove}
+                          id="remove-button"
+                          className="remove-button"
+                        >
+                          <Icon icon="fa6-solid:trash" />
+                          <span>Löschen</span>
+                        </button>
+                      </div>
+                      <hr />
+                    </>
+                  )}
+                  {skillList.length - 1 === index && (
+                    <div className="form-editor__content__function-buttons--w-100">
+                      <button
+                        className="add-new-item-button"
+                        onClick={handleSkillAdd}
+                      >
+                        <Icon icon="fa6-solid:square-plus" />
+                        <span>Weitere Skills hinzufügen</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               ))}
-            </select>
-          </div>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
   );
 }

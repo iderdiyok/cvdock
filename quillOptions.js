@@ -7,6 +7,9 @@ const modules = {
     [{ list: "ordered" }, { list: "bullet" }],
     ["link"],
   ],
+  clipboard: {
+    matchVisual: false,
+}
 };
 
 const formats = ["bold", "italic", "underline", "align", "list", "link"];

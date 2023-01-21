@@ -12,6 +12,7 @@ export default function FormSection({
   index,
   singleData,
 }) {
+
   const [currentData, updateData] = useState({});
   useEffect(() => updateData(singleData), []);
 
@@ -20,31 +21,40 @@ export default function FormSection({
 
   const { quill, quillRef } = useQuill({
     theme,
-    modules: {
-      toolbar: [],
-      clipboard: {
-          matchVisual: false,
-      }
-    },
+    modules,
     formats,
   });
-
+  
+  
   useEffect(() => {
-    if(quillRef.current && currentData.description){
-      quillRef.current.setContents(quill.clipboard?.convert(currentData.description))
-    }
-  }, [quillRef.current, currentData.description])
+    const newList = [...currentDataList];
+    newList[index] = currentData;
+    updateCurrentDataList(newList);
+  }, [currentData, index]);
 
+  
   useEffect(() => {
     if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
+      quill.on("text-change", () => {
         updateData({
           ...currentData,
-          description: JSON.stringify(quill.getContents().ops)
+          description: quill.root.innerHTML,
         });
       });
     }
-  }, [currentData, quill]);
+  }, [quill, currentData]);
+
+  useEffect(() => {
+    if (quill && currentData.description) {
+      try {
+        const content = quill.clipboard.convert(currentData.description);
+        quill.setContents(content);
+      } catch (e) {
+        console.error("Invalid format for description:", e);
+      }
+    }
+  }, [quill, currentData.description]);
+
 
   const handleChange = (e) => {
     updateData({
@@ -53,17 +63,6 @@ export default function FormSection({
     });
   };
 
-  useEffect(() => {
-    const newList = [...currentDataList];
-    newList[index] = currentData;
-    updateCurrentDataList(newList);
-  }, [currentData, index]);
-
-  // useEffect(() => {
-  //   if(currentData.description && quill){
-  //     quill.setContents(JSON.parse(currentData.description))
-  //   }
-  // }, [currentData.description, quill])
 
   return (
     <section className="form-editor__content">
