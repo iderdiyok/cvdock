@@ -11,12 +11,14 @@ export default function FormSkills(){
   const router = useRouter();
   const [skillList, setSkillList] = useState(getInitialSkillData());
   const [languageList, setLanguageList] = useState(getInitialLanguageData());
+  const [hobbys, setHobbys] = useState(getInitialHobbyData());
 
   // console.log(languageList);
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("skillDataList", JSON.stringify([...skillList]));
-    localStorage.setItem("skillLanguageList", JSON.stringify([...languageList]));
+    localStorage.setItem("languageDataList", JSON.stringify([...languageList]));
+    localStorage.setItem("hobbyData", JSON.stringify(hobbys));
     router.push("/builder/preview");
   };
   return(
@@ -28,7 +30,7 @@ export default function FormSkills(){
         </section>
         <FormSectionSkills skillList={skillList} setSkillList={setSkillList}/>
         <FormSectionLanguages languageList={languageList} setLanguageList={setLanguageList}/>
-        <FormSectionHobbys />
+        <FormSectionHobbys hobbys={hobbys} setHobbys={setHobbys}/>
       </div>
       <div className="next-step">
         <div className="button-box"
@@ -61,8 +63,19 @@ function getInitialLanguageData() {
   }
 
   const initalLanguageData = JSON.parse(
-    window.localStorage.getItem("skillLanguageList")
+    window.localStorage.getItem("languageDataList")
   );
 
   return initalLanguageData ?? [{ language: [] }];
+}
+function getInitialHobbyData() {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  const initalHoobyData = JSON.parse(
+    window.localStorage.getItem("hobbyData")
+  );
+
+  return initalHoobyData ?? "";
 }

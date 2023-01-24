@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useQuill } from "react-quilljs";
+import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { theme, modules, formats } from "quillOptions";
 
@@ -18,13 +18,6 @@ export default function FormSection({
 
   const field1_id = field1.toLowerCase();
   const field2_id = field2.toLowerCase();
-
-  const { quill, quillRef } = useQuill({
-    theme,
-    modules,
-    formats,
-  });
-  
   
   useEffect(() => {
     const newList = [...currentDataList];
@@ -32,37 +25,12 @@ export default function FormSection({
     updateCurrentDataList(newList);
   }, [currentData, index]);
 
-  
-  useEffect(() => {
-    if (quill) {
-      quill.on("text-change", () => {
-        updateData({
-          ...currentData,
-          description: quill.root.innerHTML,
-        });
-      });
-    }
-  }, [quill, currentData]);
-
-  useEffect(() => {
-    if (quill && currentData.description) {
-      try {
-        const content = quill.clipboard.convert(currentData.description);
-        quill.setContents(content);
-      } catch (e) {
-        console.error("Invalid format for description:", e);
-      }
-    }
-  }, [quill, currentData.description]);
-
-
   const handleChange = (e) => {
     updateData({
       ...currentData,
       [e.currentTarget.id]: e.currentTarget.value,
     });
   };
-
 
   return (
     <section className="form-editor__content">
@@ -118,8 +86,13 @@ export default function FormSection({
       <div className="form-editor__content__text-area">
         <div className="form-editor__content__input-label-flex">
           <label htmlFor="description">Beschreibung</label>
-          <div style={{ width: "100%", height: 200 }} id="description">
-            <div ref={quillRef} />
+          <div id="description">
+            <ReactQuill 
+              theme={theme}
+              modules={modules}
+              value={currentData.description}
+              onChange={(e) => {updateData({...currentData, description: e} )}} 
+            />
           </div>
         </div>
       </div>

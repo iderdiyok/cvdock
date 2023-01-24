@@ -9,7 +9,7 @@ const angleDownIcon = <Icon icon="fa6-solid:angle-down" />;
 
 
 export default function FormSectionSkills({ skillList, setSkillList }) {
-  const [skillsVisible, toggleSkillsVisible] = useToggle(true);
+  const [skillsVisible, toggleSkillsVisible] = useToggle(false);
 
   const handleSkillRemove = (index) => {
     const list = [...skillList];

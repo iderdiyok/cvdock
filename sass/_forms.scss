@@ -145,11 +145,16 @@
 }
 .hobbys{
     background: $dark-blue;
+    position: relative;
     .ql-toolbar, .ql-snow, .ql-content{
         background-color: $white;
     }
     .ql-editor{
         color: black;
+    }
+    .editor-input{
+        width: 100%;
+        height: 100%;
     }
 }
 .languages-list{

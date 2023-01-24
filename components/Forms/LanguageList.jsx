@@ -11,7 +11,7 @@ const languagesLevels = [
 
 export default function LanguageList({index, languageList, setLanguageList, singleLanguageData}){
     const [currentData, updateData] = useState({});
-    console.log(singleLanguageData);
+    
     useEffect(() => updateData(singleLanguageData), []);
     useEffect(() => {
         const newList = [...languageList];
