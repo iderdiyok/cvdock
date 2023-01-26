@@ -39,10 +39,9 @@ export default function FormJob() {
               <FormSectionDetails
                 field1="Position"
                 field2="Unternehmen"
-                index={index}
                 currentDataList={jobList}
                 updateCurrentDataList={setJobList}
-                singleData={singleJob}
+                index={index}
               />
               {jobList.length !== 1 && (
                 <>

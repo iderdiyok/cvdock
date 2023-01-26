@@ -39,10 +39,9 @@ export default function EducationForm() {
               <FormSectionDetails
                 field1="Qualifikation"
                 field2="Institut"
-                index={index}
                 currentDataList={educationList}
                 updateCurrentDataList={setEducationList}
-                singleData={singleEducation}
+                index={index}
               />
               {educationList.length !== 1 && (
                 <>

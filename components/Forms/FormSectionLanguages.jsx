@@ -22,7 +22,7 @@ export default function FormSectionLanguages({languageList, setLanguageList}) {
   return (
     <div className="languages">
       <h3 onClick={toggleLanguagesVisible}>
-        Sprachen {languagesVisible ? angleUpIcon : angleDownIcon}
+        Sprachen <span className="angleIcon">{languagesVisible ? angleUpIcon : angleDownIcon}</span>
       </h3>
       {languagesVisible && (
         <div className="languages-list">

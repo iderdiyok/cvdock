@@ -4,15 +4,19 @@ import Image from "next/image";
 import previewImage from "@/img/john-do-cv.png";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+
+import _001 from "@/components/CV_Templates/_001";
 export default function preview() {
   const title = "Vorschau";
   return (
     <Layout title={title}>
-      <Image
+      {/* <Image
         src={previewImage}
         alt="Cv preview"
         sizes="(max-width: 52rem) 90vw, 48rem"
-      />
+      /> */}
+
+      <_001 />
       <div className="button-box">
         <Link className="button-box__link" href="/builder/preview">
           <Icon icon="fa6-solid:downdload" />

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
-import { theme, modules, formats } from "quillOptions";
+import { theme, modules } from "quillOptions";
 
 export default function FormSection({
   field1,
@@ -10,11 +10,9 @@ export default function FormSection({
   currentDataList,
   updateCurrentDataList,
   index,
-  singleData,
 }) {
 
-  const [currentData, updateData] = useState({});
-  useEffect(() => updateData(singleData), []);
+  const [currentData, setCurrentData] = useState(currentDataList[index]);
 
   const field1_id = field1.toLowerCase();
   const field2_id = field2.toLowerCase();
@@ -26,7 +24,7 @@ export default function FormSection({
   }, [currentData, index]);
 
   const handleChange = (e) => {
-    updateData({
+    setCurrentData({
       ...currentData,
       [e.currentTarget.id]: e.currentTarget.value,
     });
@@ -91,7 +89,7 @@ export default function FormSection({
               theme={theme}
               modules={modules}
               value={currentData.description}
-              onChange={(e) => {updateData({...currentData, description: e} )}} 
+              onChange={(e) => {setCurrentData({...currentData, description: e} )}} 
             />
           </div>
         </div>

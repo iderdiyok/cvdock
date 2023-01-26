@@ -1,5 +1,10 @@
 @use 'colors' as *;
 
+.quill{
+    color: #233964;
+    height: 250px;
+}
+
 .form-editor{
     width: 80%;
     margin: 1em auto;
@@ -116,7 +121,6 @@
     font-size: 18px;
     color: $medium-blue;
     cursor: pointer;
-    transition: all .2s ease-in-out;
     svg{
         font-size: 1.5em;
     }
@@ -132,10 +136,18 @@
 }
 .skills, .languages, .hobbys{
     color: $white;
-    padding: 1em;
+    padding: 2em;
     margin-bottom: 2em;
-    cursor: pointer;
-    transition: all .5s ease-in-out;
+    font-size: 1.1em;
+    h3{
+        cursor: pointer;
+        font-size: 1.2em;
+        .angleIcon{
+            margin-left: .5em; 
+            font-size: 1.1em; 
+            transition : all 1s ease-in-out
+        }
+    }
 }
 .skills{
     background: $light-blue;
@@ -145,18 +157,12 @@
 }
 .hobbys{
     background: $dark-blue;
-    position: relative;
     .ql-toolbar, .ql-snow, .ql-content{
         background-color: $white;
     }
-    .ql-editor{
-        color: black;
-    }
-    .editor-input{
-        width: 100%;
-        height: 100%;
-    }
+    
 }
-.languages-list{
-    transition: all 5s ease-in-out;
+
+.skill-list, .languages-list{
+    margin: 2em 0;
 }

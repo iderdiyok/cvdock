@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { useToggle } from "@/hooks/useToggle";
 import { Icon } from "@iconify/react";
 import SkillList from "./SkillList";
 
 const angleUpIcon = <Icon icon="fa6-solid:angle-up" />;
 const angleDownIcon = <Icon icon="fa6-solid:angle-down" />;
-
-
 
 export default function FormSectionSkills({ skillList, setSkillList }) {
   const [skillsVisible, toggleSkillsVisible] = useToggle(false);
@@ -24,7 +21,7 @@ export default function FormSectionSkills({ skillList, setSkillList }) {
   return (
     <div className="skills">
           <h3 onClick={toggleSkillsVisible}>
-            Skills {skillsVisible ? angleUpIcon : angleDownIcon}
+            Skills <span className="angleIcon">{skillsVisible ? angleUpIcon : angleDownIcon}</span>
           </h3>
           {skillsVisible && (
             <div className="skill-list">

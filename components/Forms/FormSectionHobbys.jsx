@@ -14,7 +14,7 @@ export default function FormSectionHobbys({hobbys, setHobbys}) {
   return (
     <div className="hobbys">
       <h3 onClick={toggleHobbysVisible}>
-        Hobbys {hobbysVisible ? angleUpIcon : angleDownIcon}
+        Hobbys <span className="angleIcon">{hobbysVisible ? angleUpIcon : angleDownIcon}</span>
       </h3>
       {hobbysVisible && 
         <section className="form-editor__content">
