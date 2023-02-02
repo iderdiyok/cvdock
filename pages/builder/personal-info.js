@@ -4,22 +4,20 @@ import BuilderProgressBar from "@/components/BuilderProgressBar";
 import Layout from "@/components/Layout";
 import Loading from "@/components/Loading";
 
-const FormPersonalInfo = dynamic(() => import("@/components/Forms/FormPersonalInfo"), {
-  ssr: false,
-});
+const FormPersonalInfo = dynamic(
+  () => import("@/components/Forms/FormPersonalInfo"),
+  {
+    ssr: false,
+  }
+);
 
 export default function personalInfo() {
   const title = "Personaldaten";
-  
 
   return (
     <Layout title={title}>
       <BuilderProgressBar width="0%" />
-      { FormPersonalInfo 
-        ?<FormPersonalInfo />
-        :<Loading /> 
-      }
+      {FormPersonalInfo ? <FormPersonalInfo /> : <Loading />}
     </Layout>
   );
 }
-

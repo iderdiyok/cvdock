@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 
-import FormSectionSkills from "@/components/Forms/FormSectionSkills";
-import FormSectionLanguages from "@/components/Forms/FormSectionLanguages";
-import FormSectionHobbys from "@/components/Forms/FormSectionHobbys";
+import FormSkills_SectionSkills from "@/components/Forms/FormSkills_SectionSkills";
+import FormSkills_SectionLanguages from "@/components/Forms/FormSkills_SectionLanguages";
+import FormSkills_SectionHobbys from "@/components/Forms/FormSkills_SectionHobbys";
 const title = "Skills, Sprachen und Hobbys";
 
-export default function FormSkills(){
+export default function FormSkills() {
   const router = useRouter();
   const [skillList, setSkillList] = useState(getInitialSkillData());
   const [languageList, setLanguageList] = useState(getInitialLanguageData());
@@ -16,24 +16,31 @@ export default function FormSkills(){
   // console.log(languageList);
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("skillDataList", JSON.stringify([...skillList]));
-    localStorage.setItem("languageDataList", JSON.stringify([...languageList]));
+    localStorage.setItem("skillData", JSON.stringify([...skillList]));
+    localStorage.setItem("languageData", JSON.stringify([...languageList]));
     localStorage.setItem("hobbyData", JSON.stringify(hobbys));
     router.push("/builder/preview");
   };
-  return(
+  return (
     <>
       <div className="form-editor">
         <section className="form-editor__header">
           <h2>{title}</h2>
           <hr />
         </section>
-        <FormSectionSkills skillList={skillList} setSkillList={setSkillList}/>
-        <FormSectionLanguages languageList={languageList} setLanguageList={setLanguageList}/>
-        <FormSectionHobbys hobbys={hobbys} setHobbys={setHobbys}/>
+        <FormSkills_SectionSkills
+          skillList={skillList}
+          setSkillList={setSkillList}
+        />
+        <FormSkills_SectionLanguages
+          languageList={languageList}
+          setLanguageList={setLanguageList}
+        />
+        <FormSkills_SectionHobbys hobbys={hobbys} setHobbys={setHobbys} />
       </div>
       <div className="next-step">
-        <div className="button-box"
+        <div
+          className="button-box"
           style={{ color: "white" }}
           onClick={handleSubmit}
         >
@@ -42,7 +49,7 @@ export default function FormSkills(){
         </div>
       </div>
     </>
-  )
+  );
 }
 
 function getInitialSkillData() {
@@ -50,9 +57,7 @@ function getInitialSkillData() {
     return [{ skill: [] }];
   }
 
-  const initalSkillData = JSON.parse(
-    window.localStorage.getItem("skillDataList")
-  );
+  const initalSkillData = JSON.parse(window.localStorage.getItem("skillData"));
 
   return initalSkillData ?? [{ skill: [] }];
 }
@@ -63,19 +68,18 @@ function getInitialLanguageData() {
   }
 
   const initalLanguageData = JSON.parse(
-    window.localStorage.getItem("languageDataList")
+    window.localStorage.getItem("languageData")
   );
 
   return initalLanguageData ?? [{ language: [] }];
 }
+
 function getInitialHobbyData() {
   if (typeof window === "undefined") {
     return "";
   }
 
-  const initalHoobyData = JSON.parse(
-    window.localStorage.getItem("hobbyData")
-  );
+  const initalHoobyData = JSON.parse(window.localStorage.getItem("hobbyData"));
 
   return initalHoobyData ?? "";
 }

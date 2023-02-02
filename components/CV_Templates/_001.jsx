@@ -1,7 +1,7 @@
-const _002 = (props) => {
+const _001 = (props) => {
   return (
-    <div style={{ margin: "3em 0" }}>
-      <div className="c-v-a4051">
+    <>
+      <div className="cv_001">
         <img
           src="/playground_assets/vector102834-ruvq.svg"
           alt="Vector102834"
@@ -371,8 +371,8 @@ const _002 = (props) => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default _002;
+export default _001;

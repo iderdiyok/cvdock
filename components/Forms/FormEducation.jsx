@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 
-import FormSectionDetails from "@/components/Forms/FormSectionDetails";
+import EducationAndJobList from "@/components/Forms/EducationAndJobList";
 
 export default function EducationForm() {
   const title = "Bildung und Qualifikationen";
@@ -23,7 +23,7 @@ export default function EducationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("educationDataList", JSON.stringify([...educationList]));
+    localStorage.setItem("educationData", JSON.stringify([...educationList]));
     router.push("/builder/job");
   };
   return (
@@ -36,7 +36,7 @@ export default function EducationForm() {
         <div className="educations">
           {educationList.map((singleEducation, index) => (
             <div className="education" key={index}>
-              <FormSectionDetails
+              <EducationAndJobList
                 field1="Qualifikation"
                 field2="Institut"
                 currentDataList={educationList}
@@ -95,7 +95,7 @@ function getInitialEducationData() {
   }
 
   const initalEducationData = JSON.parse(
-    window.localStorage.getItem("educationDataList")
+    window.localStorage.getItem("educationData")
   );
 
   return initalEducationData ?? [{ education: [] }];

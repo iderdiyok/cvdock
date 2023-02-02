@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 
-import FormSectionDetails from "@/components/Forms/FormSectionDetails";
+import EducationAndJobList from "@/components/Forms/EducationAndJobList";
 
 const title = "Berufserfahrungen";
 
@@ -23,7 +23,7 @@ export default function FormJob() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("jobDataList", JSON.stringify(jobList));
+    localStorage.setItem("jobData", JSON.stringify([...jobList]));
     router.push("/builder/skills");
   };
   return (
@@ -36,7 +36,7 @@ export default function FormJob() {
         <div className="jobs">
           {jobList.map((singleJob, index) => (
             <div className="job" key={index}>
-              <FormSectionDetails
+              <EducationAndJobList
                 field1="Position"
                 field2="Unternehmen"
                 currentDataList={jobList}
@@ -94,7 +94,7 @@ function getInitialJobData() {
     return [{ job: [] }];
   }
 
-  const initalJobData = JSON.parse(window.localStorage.getItem("jobDataList"));
+  const initalJobData = JSON.parse(window.localStorage.getItem("jobData"));
 
   return initalJobData ?? [{ job: [] }];
 }

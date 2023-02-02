@@ -4,19 +4,18 @@ import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { theme, modules } from "quillOptions";
 
-export default function FormSection({
+export default function EducationAndJobList({
   field1,
   field2,
   currentDataList,
   updateCurrentDataList,
   index,
 }) {
-
   const [currentData, setCurrentData] = useState(currentDataList[index]);
 
   const field1_id = field1.toLowerCase();
   const field2_id = field2.toLowerCase();
-  
+
   useEffect(() => {
     const newList = [...currentDataList];
     newList[index] = currentData;
@@ -85,11 +84,14 @@ export default function FormSection({
         <div className="form-editor__content__input-label-flex">
           <label htmlFor="description">Beschreibung</label>
           <div id="description">
-            <ReactQuill 
+            <ReactQuill
               theme={theme}
               modules={modules}
               value={currentData.description}
-              onChange={(e) => {setCurrentData({...currentData, description: e} )}} 
+              placeholder="Bitte fügen Sie hier Ihre Beschreibung des Eintrags hinzu..."
+              onChange={(e) => {
+                setCurrentData({ ...currentData, description: e });
+              }}
             />
           </div>
         </div>
