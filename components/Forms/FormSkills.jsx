@@ -9,16 +9,21 @@ const title = "Skills, Sprachen und Hobbys";
 
 export default function FormSkills() {
   const router = useRouter();
-  const [skillList, setSkillList] = useState(getInitialSkillData());
-  const [languageList, setLanguageList] = useState(getInitialLanguageData());
-  const [hobbys, setHobbys] = useState(getInitialHobbyData());
+
+  const resumeData = getInitialData();
+  const [skillList, setSkillList] = useState(resumeData.skills);
+  const [languageList, setLanguageList] = useState(resumeData.languages);
+  const [hobbys, setHobbys] = useState(resumeData.hobbys);
 
   // console.log(languageList);
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("skillData", JSON.stringify([...skillList]));
-    localStorage.setItem("languageData", JSON.stringify([...languageList]));
-    localStorage.setItem("hobbyData", JSON.stringify(hobbys));
+    
+    resumeData.skills = [...skillList]
+    resumeData.languages = [...languageList]
+    resumeData.hobbys = hobbys
+    
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
     router.push("/builder/preview");
   };
   return (
@@ -52,34 +57,45 @@ export default function FormSkills() {
   );
 }
 
-function getInitialSkillData() {
+// function getInitialSkillData() {
+//   if (typeof window === "undefined") {
+//     return [{ skill: [] }];
+//   }
+
+//   const initalSkillData = JSON.parse(window.localStorage.getItem("skillData"));
+
+//   return initalSkillData ?? [{ skill: [] }];
+// }
+
+// function getInitialLanguageData() {
+//   if (typeof window === "undefined") {
+//     return [{ language: [] }];
+//   }
+
+//   const initalLanguageData = JSON.parse(
+//     window.localStorage.getItem("languageData")
+//   );
+
+//   return initalLanguageData ?? [{ language: [] }];
+// }
+
+// function getInitialHobbyData() {
+//   if (typeof window === "undefined") {
+//     return "";
+//   }
+
+//   const initalHoobyData = JSON.parse(window.localStorage.getItem("hobbyData"));
+
+//   return initalHoobyData ?? "";
+// }
+function getInitialData() {
   if (typeof window === "undefined") {
-    return [{ skill: [] }];
+    return {};
   }
 
-  const initalSkillData = JSON.parse(window.localStorage.getItem("skillData"));
-
-  return initalSkillData ?? [{ skill: [] }];
-}
-
-function getInitialLanguageData() {
-  if (typeof window === "undefined") {
-    return [{ language: [] }];
-  }
-
-  const initalLanguageData = JSON.parse(
-    window.localStorage.getItem("languageData")
+  const initalData = JSON.parse(
+    window.localStorage.getItem("resumeData")
   );
 
-  return initalLanguageData ?? [{ language: [] }];
-}
-
-function getInitialHobbyData() {
-  if (typeof window === "undefined") {
-    return "";
-  }
-
-  const initalHoobyData = JSON.parse(window.localStorage.getItem("hobbyData"));
-
-  return initalHoobyData ?? "";
+  return initalData ?? {};
 }

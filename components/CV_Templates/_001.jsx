@@ -1,6 +1,8 @@
-const _001 = (props) => {
+const _001 = () => {
+  const resumeData = getInitialData();
+  console.log(resumeData);
   return (
-    <>
+    <div className="print-container">
       <div className="cv_001">
         <img
           src="/playground_assets/vector102834-ruvq.svg"
@@ -362,7 +364,7 @@ const _001 = (props) => {
             </span>
           </span>
           <span className="text94">
-            <span>John Do</span>
+            <span>{resumeData ? `${resumeData.personal.first_name} ${resumeData.personal.last_name}` : "John Doe"}</span>
           </span>
           <img
             src="/playground_assets/profile11109-y5qs-200h.png"
@@ -371,8 +373,19 @@ const _001 = (props) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default _001;
+function getInitialData() {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  const initalData = JSON.parse(
+    window.localStorage.getItem("resumeData")
+  );
+
+  return initalData ?? {};
+}

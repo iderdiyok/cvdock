@@ -91,9 +91,24 @@
         margin-bottom: 1em;
       }
     }
-    &__function-buttons--flex-end {
+    &__function-buttons--end {
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    padding: 1em;
+    &__content {
+      &__first-line {
+        display: block;
+      }
+      &__grid--col-2 {
+        display: block;
+      }
+      &__grid--col-3 {
+        display: block;
+      }
     }
   }
 }
@@ -106,7 +121,7 @@
   color: crimson;
   border: 2px solid #eaeaea;
   border-radius: 3px;
-  transition: all 0.2s ease-in-out;
+  transition: all .3s ease-in-out;
   &:hover,
   &:focus {
     background-color: crimson;
@@ -126,6 +141,7 @@
   font-size: 18px;
   color: $medium-blue;
   cursor: pointer;
+  transition: all .4s ease-in-out;
   svg {
     font-size: 1.5em;
   }
@@ -158,6 +174,9 @@
       font-size: 1.1em;
       transition: all 1s ease-in-out;
     }
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 1em;
   }
 }
 .skills {

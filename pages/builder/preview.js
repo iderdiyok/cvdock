@@ -1,38 +1,45 @@
-import Layout from "@/components/Layout";
-import Image from "next/image";
-
-import previewImage from "@/img/john-do-cv.png";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useReactToPrint } from "react-to-print";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import Loading from "@/components/Loading";
+import Layout from "@/components/Layout";
+import Elegant from "@/components/CV_Templates/Elegant/Elegant";
+import BackButton from "@/components/Backbutton";
 
-import _001 from "@/components/CV_Templates/_001";
 export default function preview() {
   const title = "Vorschau";
+  const componentRef = useRef();
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 3000);
+  }, []);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "cvdock"
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Layout title={title}>
-      {/* <Image
-        src={previewImage}
-        alt="Cv preview"
-        sizes="(max-width: 52rem) 90vw, 48rem"
-      /> */}
-
-      <_001 />
-      <div className="button-box">
-        <Link className="button-box__link" href="/builder/preview">
-          <Icon icon="fa6-solid:downdload" />
-          Herunterladen
-        </Link>
+      <BackButton />
+      <div id="print-content" ref={componentRef}>
+        <Elegant />
       </div>
-
-      <div>
-        <Link
-          className="button-box__link"
-          href="/builder/skills"
-          style={{ color: "black", margin: "2em 0" }}
-        >
-          <Icon icon="fa6-solid:angle-left" />
-          Zurück zu Bearbeiten
-        </Link>
+      <div className="next-step">
+      <div className="button-box" style={{"margin": "0 auto", "width": "50%"}}>
+        <span className="button-box__link" onClick={handlePrint}>
+          <Icon icon="fa6-solid:downdload" />
+          ausdrucken / herunterladen
+        </span>
+      </div>
       </div>
     </Layout>
   );

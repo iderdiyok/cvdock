@@ -9,7 +9,8 @@ const title = "Berufserfahrungen";
 export default function FormJob() {
   const router = useRouter();
 
-  const [jobList, setJobList] = useState(getInitialJobData());
+  const resumeData = getInitialData();
+  const [jobList, setJobList] = useState(resumeData.jobs);
 
   const handleJobRemove = (index) => {
     const list = [...jobList];
@@ -23,7 +24,8 @@ export default function FormJob() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("jobData", JSON.stringify([...jobList]));
+    resumeData.jobs = [...jobList];
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
     router.push("/builder/skills");
   };
   return (
@@ -45,7 +47,7 @@ export default function FormJob() {
               />
               {jobList.length !== 1 && (
                 <>
-                  <div className="form-editor__content__function-buttons--flex-end">
+                  <div className="form-editor__content__function-buttons--end">
                     <button
                       onClick={handleJobRemove}
                       id="remove-button"
@@ -79,22 +81,19 @@ export default function FormJob() {
           onClick={handleSubmit}
           style={{ color: "white" }}
         >
-          {/* <Link className="button-box__link" href="/builder/skills"> */}
           Weiter
           <Icon icon="fa6-solid:angle-right" />
-          {/* </Link> */}
         </div>
       </div>
     </>
   );
 }
-
-function getInitialJobData() {
+function getInitialData() {
   if (typeof window === "undefined") {
-    return [{ job: [] }];
+    return {};
   }
 
-  const initalJobData = JSON.parse(window.localStorage.getItem("jobData"));
+  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
 
-  return initalJobData ?? [{ job: [] }];
+  return initalData ?? {};
 }

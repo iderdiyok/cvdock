@@ -23,3 +23,17 @@ body {
   margin-right: auto;
   padding: 0 1rem;
 }
+.back_button{
+  // margin-left: 2em;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  &:hover{
+    background-color: #ededed;
+  }
+}

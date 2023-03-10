@@ -11,6 +11,7 @@ export default function Navigation() {
           src={logo}
           alt="cvdock-logo"
           sizes="(max-width: 52rem) 90vw, 48rem"
+          priority
         />
       </Link>
     </nav>

@@ -9,7 +9,8 @@ export default function EducationForm() {
 
   const router = useRouter();
 
-  const [educationList, setEducationList] = useState(getInitialEducationData());
+  const resumeData = getInitialData();
+  const [educationList, setEducationList] = useState(resumeData.educations);
 
   const handleEducationRemove = (index) => {
     const list = [...educationList];
@@ -18,12 +19,13 @@ export default function EducationForm() {
   };
 
   const handleEducationAdd = () => {
-    setEducationList([...educationList, { education: [] }]);
+    setEducationList([...educationList, {}]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("educationData", JSON.stringify([...educationList]));
+    resumeData.educations = [...educationList]
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
     router.push("/builder/job");
   };
   return (
@@ -45,7 +47,7 @@ export default function EducationForm() {
               />
               {educationList.length !== 1 && (
                 <>
-                  <div className="form-editor__content__function-buttons--flex-end">
+                  <div className="form-editor__content__function-buttons--end">
                     <button
                       onClick={() => handleEducationRemove(index)}
                       id="remove-button"
@@ -89,14 +91,25 @@ export default function EducationForm() {
   );
 }
 
-function getInitialEducationData() {
+// function getInitialEducationData() {
+//   if (typeof window === "undefined") {
+//     return [{ education: [] }];
+//   }
+
+//   const initalEducationData = JSON.parse(
+//     window.localStorage.getItem("educationData")
+//   );
+
+//   return initalEducationData ?? [{ education: [] }];
+// }
+function getInitialData() {
   if (typeof window === "undefined") {
-    return [{ education: [] }];
+    return {};
   }
 
-  const initalEducationData = JSON.parse(
-    window.localStorage.getItem("educationData")
+  const initalData = JSON.parse(
+    window.localStorage.getItem("resumeData")
   );
 
-  return initalEducationData ?? [{ education: [] }];
+  return initalData ?? {};
 }

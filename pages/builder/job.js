@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import dynamic from "next/dynamic";
 
-import BuilderProgressBar from "@/components/BuilderProgressBar";
 import Layout from "@/components/Layout";
-import Loading from "@/components/Loading";
+import BuilderProgressBar from "@/components/BuilderProgressBar";
+import BackButton from "@/components/Backbutton";
+import useDisplaySize from "@/hooks/useDisplaySize";
 
 const FormJob = dynamic(() => import("@/components/Forms/FormJob"), {
   ssr: false,
@@ -11,13 +13,16 @@ const FormJob = dynamic(() => import("@/components/Forms/FormJob"), {
 const title = "Berufserfahrungen";
 
 export default function job() {
+  const isTabletSize = useDisplaySize();
   return (
     <Layout title={title}>
-      <BuilderProgressBar width="60%" education="true" job="true" />
-      { FormJob 
-        ? <FormJob />
-        : <Loading />
-      }
+      {isTabletSize ? (
+        <BackButton />
+      ) : (
+        <BuilderProgressBar width="60%" education="true" job="true" />
+      )}
+
+      <FormJob />
     </Layout>
   );
 }

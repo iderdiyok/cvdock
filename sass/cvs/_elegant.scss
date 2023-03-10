@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500&display=swap");
+$fira: "Fira Sans Extra Condensed", sans-serif;
+.print-container {
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  page-break-after: always;
+  display: grid;
+  grid-template-columns: 1.4fr 3fr;
+  gap: 2em;
+  font-family: $fira;
+  color: #333;
+  h4 {
+    margin-top: 3em;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+  hr {
+    width: 90%;
+    margin: -1em 0 0 0;
+    border: 1px solid;
+  }
+  .chart {
+    margin-top: 0.5em;
+    .bar {
+      width: 90%;
+      height: 6px;
+      background: rgba(255, 255, 255, 1);
+      .percent {
+        height: 6px;
+        background: rgba(143, 146, 150, 1);
+      }
+    }
+  }
+  .person-and-contact {
+    width: 100%;
+    height: 100%;
+    background-color: #dedede;
+    padding: 2em;
+    img {
+      border-radius: 50%;
+    }
+    .name-and-title {
+      h3 {
+        font-size: 2em;
+        font-weight: 400;
+        margin-bottom: 0.3em;
+      }
+    }
+    .person {
+      p {
+        margin: 0.5em 0;
+      }
+    }
+    .contact {
+      .label {
+        margin-top: 1em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+    }
+  }
+  .education-and-job {
+    margin: 2em 0;
+
+    .text-block {
+      margin: 1.5em 0;
+      width: 93%;
+      p {
+        margin: 0;
+        padding: 0;
+      }
+      .time-and-name {
+        font-size: 1.1em;
+        .time,
+        .city {
+          font-weight: 500;
+        }
+        .name {
+          font-size: 1.2em;
+          font-weight: 500;
+        }
+      }
+      .details {
+        margin: 0.5em 0;
+      }
+    }
+  }
+}

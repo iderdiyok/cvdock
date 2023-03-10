@@ -2,9 +2,24 @@ import Layout from "@/components/Layout";
 import Image from "next/image";
 import johnDoCv from "@/img/john-do-cv.png";
 import dock from "@/img/dock.svg";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+  
+  const resumeData = {
+    personal: {},
+    educations: [{}],
+    jobs: [{}],
+    skills: [{}],
+    languages:[{}],
+    hobbys:""
+  };
+  const onBuild = (e) => {
+    e.preventDefault();
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    router.push("/builder/personal-info");
+  };
   return (
     <Layout>
       <div className="d-grid home-page">
@@ -21,9 +36,9 @@ export default function Home() {
             potenziellen Arbeitgeber vorlegen können.
           </p>
           <div className="button-box">
-            <Link className="button-box__link" href="/builder/personal-info">
+            <div className="button-box__link" onClick={onBuild}>
               Lebenslauf erstellen
-            </Link>
+            </div>
           </div>
         </section>
         <section className="home-page__image">
