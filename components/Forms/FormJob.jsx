@@ -19,7 +19,7 @@ export default function FormJob() {
   };
 
   const handleJobAdd = () => {
-    setJobList([...jobList, { job: "" }]);
+    setJobList([...jobList, {}]);
   };
 
   const handleSubmit = (e) => {

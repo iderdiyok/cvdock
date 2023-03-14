@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
@@ -9,10 +10,16 @@ export default function FormPersonalInfo() {
   const resumeData = getInitialData();
   const [personal, updatePersonal] = useState(resumeData.personal);
 
-  const handleImageChange = (e) => {
+  const handleChangeImage = (e) => {
     updatePersonal({
       ...personal,
       [e.currentTarget.id]: URL.createObjectURL(e.target.files[0]),
+    });
+  };
+  const handleDeleteImage = (e) => {
+    updatePersonal({
+      ...personal,
+      avatar: null,
     });
   };
 
@@ -26,7 +33,7 @@ export default function FormPersonalInfo() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(personal);
-    resumeData.personal = personal
+    resumeData.personal = personal;
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
     router.push("/builder/education");
   };
@@ -43,23 +50,36 @@ export default function FormPersonalInfo() {
           <div className="form-editor__content__first-line">
             <div className="form-editor__content__first-line--avatar">
               <div className="form-editor__content__first-line--avatar-box">
-                <label htmlFor="avatar">
+                <label
+                  htmlFor="avatar"
+                  style={
+                    personal.avatar ? { padding: "0" } : { padding: "1.7em" }
+                  }
+                >
                   {personal.avatar ? (
-                    <img src={personal.avatar} alt="Preview" />
+                    <>
+                      <img src={personal.avatar} alt="Preview" />
+                      <Icon
+                        className="iconClose"
+                        icon="fa6-solid:xmark"
+                        onClick={handleDeleteImage}
+                      />
+                    </>
                   ) : (
                     <>
-                      <Icon icon="fa6-solid:camera" />
+                      <Icon className="iconPhoto" icon="fa6-solid:camera" />
                       <span>Hinzufügen</span>
                       <span>(optional)</span>
+
+                      <input
+                        id="avatar"
+                        type="file"
+                        onChange={handleChangeImage}
+                        style={{ display: "none" }}
+                      />
                     </>
                   )}
                 </label>
-                <input
-                  id="avatar"
-                  type="file"
-                  onChange={handleImageChange}
-                  style={{ display: "none" }}
-                />
               </div>
             </div>
             <div className="form-editor__content__first-line--personalInfo">
@@ -236,9 +256,7 @@ function getInitialData() {
     return {};
   }
 
-  const initalPersonal = JSON.parse(
-    window.localStorage.getItem("resumeData")
-  );
+  const initalPersonal = JSON.parse(window.localStorage.getItem("resumeData"));
 
   return initalPersonal ?? {};
 }

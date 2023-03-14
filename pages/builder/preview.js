@@ -20,8 +20,22 @@ export default function preview() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "cvdock"
+    documentTitle: "cvdock",
   });
+
+  const exportJson = () => {
+    const data = getInitialData();
+    const jsonData = JSON.stringify(data);
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = 'cvdock.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
   if (isLoading) {
     return <Loading />;
@@ -33,14 +47,29 @@ export default function preview() {
       <div id="print-content" ref={componentRef}>
         <Elegant />
       </div>
-      <div className="next-step">
-      <div className="button-box" style={{"margin": "0 auto", "width": "50%"}}>
-        <span className="button-box__link" onClick={handlePrint}>
-          <Icon icon="fa6-solid:downdload" />
-          ausdrucken / herunterladen
-        </span>
-      </div>
+      <div className="next-step" style={{display: "flex", justifyItems: "center", gap: "1em"}}>
+        <div className="button-box" style={{ width: "20%" }}>
+          <span className="button-box__link" onClick={handlePrint}>
+            <Icon icon="fa6-solid:file-arrow-down" />
+            ausdrucken / herunterladen
+          </span>
+        </div>
+        <div className="button-box" style={{ width: "20%" }}>
+          <span className="button-box__link" onClick={exportJson}>
+            <Icon icon="fa6-solid:bars-progress" />
+            json herunterladen
+          </span>
+        </div>
       </div>
     </Layout>
   );
+}
+function getInitialData() {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  const initalPersonal = JSON.parse(window.localStorage.getItem("resumeData"));
+
+  return initalPersonal ?? {};
 }

@@ -56,38 +56,6 @@ export default function FormSkills() {
     </>
   );
 }
-
-// function getInitialSkillData() {
-//   if (typeof window === "undefined") {
-//     return [{ skill: [] }];
-//   }
-
-//   const initalSkillData = JSON.parse(window.localStorage.getItem("skillData"));
-
-//   return initalSkillData ?? [{ skill: [] }];
-// }
-
-// function getInitialLanguageData() {
-//   if (typeof window === "undefined") {
-//     return [{ language: [] }];
-//   }
-
-//   const initalLanguageData = JSON.parse(
-//     window.localStorage.getItem("languageData")
-//   );
-
-//   return initalLanguageData ?? [{ language: [] }];
-// }
-
-// function getInitialHobbyData() {
-//   if (typeof window === "undefined") {
-//     return "";
-//   }
-
-//   const initalHoobyData = JSON.parse(window.localStorage.getItem("hobbyData"));
-
-//   return initalHoobyData ?? "";
-// }
 function getInitialData() {
   if (typeof window === "undefined") {
     return {};

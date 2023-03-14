@@ -19,7 +19,7 @@ export default function FormSectionLanguages({
   };
 
   const handleLanguageAdd = () => {
-    setLanguageList([...languageList, { language: "" }]);
+    setLanguageList([...languageList, {}]);
   };
 
   return (
