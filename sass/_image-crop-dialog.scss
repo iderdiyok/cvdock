@@ -1,0 +1,47 @@
+@use "colors" as *;
+.imageCropDialog {
+  position: fixed;
+  z-index: 2;
+  .backdrop {
+    position: fixed;
+    background-color: black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .crop-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+  }
+
+  .controls {
+    position: fixed;
+    bottom: 1em;
+    left: 0;
+    width: 100%;
+    height: 80px;
+  }
+
+  .controls-upper-area {
+    text-align: center;
+  }
+
+  .slider {
+    width: 50%;
+  }
+
+  .button-area {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 20px;
+  }
+  button {
+    width: 15%;
+  }
+}

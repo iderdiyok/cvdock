@@ -11,8 +11,8 @@ export default function Elegant() {
       <div className="person-and-contact">
         <Image
           src={
-            resumeData.personal.avatar
-              ? resumeData.personal.avatar
+            resumeData.personal.avatar.croppedImageUrl
+              ? resumeData.personal.avatar.croppedImageUrl
               : "/img/no_image.jpg"
           }
           alt="avatar"

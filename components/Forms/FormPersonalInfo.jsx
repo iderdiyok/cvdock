@@ -2,6 +2,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
+import ImageCropDialog from "../ImageCropDialog";
 
 export default function FormPersonalInfo() {
   const title = "Personaldaten";
@@ -9,18 +10,39 @@ export default function FormPersonalInfo() {
 
   const resumeData = getInitialData();
   const [personal, updatePersonal] = useState(resumeData.personal);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const handleChangeImage = (e) => {
-    updatePersonal({
-      ...personal,
-      [e.currentTarget.id]: URL.createObjectURL(e.target.files[0]),
-    });
+    const avatar = {
+      imageUrl : URL.createObjectURL(e.target.files[0]),
+      croppedImageUrl: null
+    }
+    setSelectedAvatar(avatar)
   };
+
   const handleDeleteImage = (e) => {
     updatePersonal({
       ...personal,
       avatar: null,
     });
+  };
+
+  const onCancel = () => {
+    setSelectedAvatar(null);
+  };
+
+  const setCroppedImageFor = (crop, zoom, aspect, croppedImageUrl) => {
+    debugger
+    const newAvatar = {croppedImageUrl, crop, zoom, aspect}
+    updatePersonal({
+      ...personal,
+      avatar: newAvatar,
+    });
+    setSelectedAvatar(null);
+  };
+
+  const resetImage = (id) => {
+    setCroppedImageFor(id);
   };
 
   const handleChange = (e) => {
@@ -40,6 +62,17 @@ export default function FormPersonalInfo() {
 
   return (
     <>
+      {selectedAvatar ? (
+        <ImageCropDialog
+          imageUrl={selectedAvatar.imageUrl}
+          cropInit={selectedAvatar.crop}
+          zoomInit={selectedAvatar.zoom}
+          aspectInit={selectedAvatar.aspect}
+          onCancel={onCancel}
+          setCroppedImageFor={setCroppedImageFor}
+          resetImage={resetImage}
+        />
+      ) : null}
       <div className="form-editor">
         <section className="form-editor__header">
           <h2>{title}</h2>
@@ -58,7 +91,7 @@ export default function FormPersonalInfo() {
                 >
                   {personal.avatar ? (
                     <>
-                      <img src={personal.avatar} alt="Preview" />
+                      <img src={personal.avatar.croppedImageUrl} alt="Preview" />
                       <Icon
                         className="iconClose"
                         icon="fa6-solid:xmark"
