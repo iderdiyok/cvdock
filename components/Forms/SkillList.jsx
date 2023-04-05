@@ -9,14 +9,15 @@ const skillsLevels = [
 export default function SkillList({index, skillList, setSkillList, singleSkillData}){
     const [currentData, updateData] = useState({});
 
-    useEffect(() => updateData(singleSkillData), []);
+    useEffect(() => updateData(singleSkillData), [singleSkillData]);
     useEffect(() => {
         const newList = [...skillList];
         newList[index] = currentData;
         setSkillList(newList);
-      }, [currentData, index]);
+      }, [currentData, index, setSkillList, skillList]);
 
       const handleChange = (e) => {
+        console.log(e.currentTarget.value);
         updateData({
           ...currentData,
           [e.currentTarget.id]:  e.currentTarget.value,
@@ -44,7 +45,7 @@ export default function SkillList({index, skillList, setSkillList, singleSkillDa
                             onChange={handleChange} 
                         >
                         {skillsLevels.map(({ value, option }) => (
-                            <option key={value} value={option}>
+                            <option key={value} value={value}>
                                 {option}
                             </option>
                         ))}

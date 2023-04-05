@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import ImageCropDialog from "../ImageCropDialog";
+import { motion } from "framer-motion";
 
-export default function FormPersonalInfo() {
+export default function FormPersonalInfo({ past }) {
   const title = "Personaldaten";
   const router = useRouter();
 
@@ -14,10 +15,10 @@ export default function FormPersonalInfo() {
 
   const handleChangeImage = (e) => {
     const avatar = {
-      imageUrl : URL.createObjectURL(e.target.files[0]),
-      croppedImageUrl: null
-    }
-    setSelectedAvatar(avatar)
+      imageUrl: URL.createObjectURL(e.target.files[0]),
+      croppedImageUrl: null,
+    };
+    setSelectedAvatar(avatar);
   };
 
   const handleDeleteImage = (e) => {
@@ -32,8 +33,7 @@ export default function FormPersonalInfo() {
   };
 
   const setCroppedImageFor = (crop, zoom, aspect, croppedImageUrl) => {
-    debugger
-    const newAvatar = {croppedImageUrl, crop, zoom, aspect}
+    const newAvatar = { croppedImageUrl, crop, zoom, aspect };
     updatePersonal({
       ...personal,
       avatar: newAvatar,
@@ -52,12 +52,14 @@ export default function FormPersonalInfo() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, past = false) => {
     e.preventDefault();
-    console.log(personal);
     resumeData.personal = personal;
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
-    router.push("/builder/education");
+    router.push({
+      pathname: "/builder/education",
+      query: { past },
+    });
   };
 
   return (
@@ -73,7 +75,13 @@ export default function FormPersonalInfo() {
           resetImage={resetImage}
         />
       ) : null}
-      <div className="form-editor">
+      <motion.div
+        className="form-editor"
+        initial={{ x: past ? "100vw" : "-100vw" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100vw" }}
+        transition={{ duration: 0.4 }}
+      >
         <section className="form-editor__header">
           <h2>{title}</h2>
           <hr />
@@ -91,7 +99,10 @@ export default function FormPersonalInfo() {
                 >
                   {personal.avatar ? (
                     <>
-                      <img src={personal.avatar.croppedImageUrl} alt="Preview" />
+                      <img
+                        src={personal.avatar.croppedImageUrl}
+                        alt="Preview"
+                      />
                       <Icon
                         className="iconClose"
                         icon="fa6-solid:xmark"
@@ -269,15 +280,15 @@ export default function FormPersonalInfo() {
             </div>
           </div>
         </form>
-      </div>
+      </motion.div>
       <div className="next-step">
         <div
           className="button-box"
           style={{ color: "white" }}
-          onClick={handleSubmit}
+          onClick={(e) => handleSubmit(e, true)}
         >
           Weiter
-          <Icon icon="fa6-solid:angle-right" />
+          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}}/>
         </div>
       </div>
     </>

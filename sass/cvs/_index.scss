@@ -1,11 +1,9 @@
-// @forward "_001";
 @forward "elegant";
 
 #print-content {
-  width: 210mm;
-  height: 296.8mm;
-  display: flex;
-  justify-items: flex-start;
-  overflow: hidden;
-  margin: 0 auto;
+  // width: 210mm;
+  // height: 296.8mm;
+  // display: flex;
+  // flex-direction: column;
+  // justify-items: flex-start;
 }

@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import BuilderProgressBar from "@/components/BuilderProgressBar";
 import BackButton from "@/components/Backbutton";
 import useDisplaySize from "@/hooks/useDisplaySize";
+import { useRouter } from "next/router";
 
 const FormJob = dynamic(() => import("@/components/Forms/FormJob"), {
   ssr: false,
@@ -13,6 +14,9 @@ const FormJob = dynamic(() => import("@/components/Forms/FormJob"), {
 const title = "Berufserfahrungen";
 
 export default function job() {
+  const router = useRouter();
+  const { past } = router.query;
+
   const isTabletSize = useDisplaySize();
   return (
     <Layout title={title}>
@@ -22,7 +26,7 @@ export default function job() {
         <BuilderProgressBar width="60%" education="true" job="true" />
       )}
 
-      <FormJob />
+      <FormJob past={past} />
     </Layout>
   );
 }

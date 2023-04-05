@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@400;500&display=swap");
-$fira: "Fira Sans Extra Condensed", sans-serif;
 .print-container {
+  width: 210mm;
+  height: 296.8mm;
+  overflow: visible;
   margin: 0 auto;
   border: 1px solid #ccc;
   page-break-after: always;
   display: grid;
   grid-template-columns: 1.4fr 3fr;
   gap: 2em;
-  font-family: $fira;
   color: #333;
   h4 {
     margin-top: 3em;

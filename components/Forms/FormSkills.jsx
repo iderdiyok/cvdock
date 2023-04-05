@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
-
+import { motion } from "framer-motion";
 import FormSkills_SectionSkills from "@/components/Forms/FormSkills_SectionSkills";
 import FormSkills_SectionLanguages from "@/components/Forms/FormSkills_SectionLanguages";
 import FormSkills_SectionHobbys from "@/components/Forms/FormSkills_SectionHobbys";
 const title = "Skills, Sprachen und Hobbys";
 
-export default function FormSkills() {
+export default function FormSkills({ past }) {
   const router = useRouter();
 
   const resumeData = getInitialData();
@@ -15,20 +15,25 @@ export default function FormSkills() {
   const [languageList, setLanguageList] = useState(resumeData.languages);
   const [hobbys, setHobbys] = useState(resumeData.hobbys);
 
-  // console.log(languageList);
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    resumeData.skills = [...skillList]
-    resumeData.languages = [...languageList]
-    resumeData.hobbys = hobbys
-    
+
+    resumeData.skills = [...skillList];
+    resumeData.languages = [...languageList];
+    resumeData.hobbys = hobbys;
+
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
     router.push("/builder/preview");
   };
   return (
     <>
-      <div className="form-editor">
+      <motion.div
+        className="form-editor"
+        initial={{ x: past ? "100vw" : "-100vw" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100vw" }}
+        transition={{ duration: 0.4 }}
+      >
         <section className="form-editor__header">
           <h2>{title}</h2>
           <hr />
@@ -42,7 +47,7 @@ export default function FormSkills() {
           setLanguageList={setLanguageList}
         />
         <FormSkills_SectionHobbys hobbys={hobbys} setHobbys={setHobbys} />
-      </div>
+      </motion.div>
       <div className="next-step">
         <div
           className="button-box"
@@ -50,7 +55,7 @@ export default function FormSkills() {
           onClick={handleSubmit}
         >
           Vorschau
-          <Icon icon="fa6-solid:eye" />
+          <Icon icon="mdi:print-preview" />
         </div>
       </div>
     </>
@@ -61,9 +66,7 @@ function getInitialData() {
     return {};
   }
 
-  const initalData = JSON.parse(
-    window.localStorage.getItem("resumeData")
-  );
+  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
 
   return initalData ?? {};
 }

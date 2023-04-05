@@ -1,6 +1,6 @@
 import { useToggle } from "@/hooks/useToggle";
 import { Icon } from "@iconify/react";
-
+import { motion } from "framer-motion";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { theme, modules, formats } from "quillOptions";
@@ -20,7 +20,18 @@ export default function FormSectionHobbys({ hobbys, setHobbys }) {
         </span>
       </h3>
       {hobbysVisible && (
-        <div className="hobbyEditor">
+        <motion.div 
+          className="hobbyEditor"
+          key="content"
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          variants={{
+            open: { opacity: 1, height: "auto" },
+            collapsed: { opacity: 0, height: 0 }
+          }}
+          transition = {{ duration: .3 }}
+        >
           <section className="form-editor__content">
             <div className="form-editor__content__hobbys">
               <div className="form-editor__content__text-area">
@@ -38,7 +49,7 @@ export default function FormSectionHobbys({ hobbys, setHobbys }) {
               </div>
             </div>
           </section>
-        </div>
+        </motion.div>
       )}
     </div>
   );

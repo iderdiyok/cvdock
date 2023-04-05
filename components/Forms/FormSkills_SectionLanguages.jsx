@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useToggle } from "@/hooks/useToggle";
 import { Icon } from "@iconify/react";
 import LanguageList from "./LanguageList";
-
+import { motion } from "framer-motion";
 const angleUpIcon = <Icon icon="fa6-solid:angle-up" />;
 const angleDownIcon = <Icon icon="fa6-solid:angle-down" />;
 
@@ -31,7 +31,18 @@ export default function FormSectionLanguages({
         </span>
       </h3>
       {languagesVisible && (
-        <div className="languages-list">
+        <motion.div 
+          className="languages-list"
+          key="content"
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          variants={{
+            open: { opacity: 1, height: "auto" },
+            collapsed: { opacity: 0, height: 0 }
+          }}
+          transition = {{ duration: .3 }}
+        >
           {languageList.map((singleLanguage, index) => (
             <div className="language" key={index}>
               <LanguageList
@@ -68,7 +79,7 @@ export default function FormSectionLanguages({
               )}
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

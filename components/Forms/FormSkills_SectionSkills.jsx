@@ -1,6 +1,7 @@
 import { useToggle } from "@/hooks/useToggle";
 import { Icon } from "@iconify/react";
 import SkillList from "./SkillList";
+import { motion } from "framer-motion";
 
 const angleUpIcon = <Icon icon="fa6-solid:angle-up" />;
 const angleDownIcon = <Icon icon="fa6-solid:angle-down" />;
@@ -27,7 +28,17 @@ export default function FormSectionSkills({ skillList, setSkillList }) {
         </span>
       </h3>
       {skillsVisible && (
-        <div className="skill-list">
+        <motion.div className="skill-list"
+          key="content"
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          variants={{
+            open: { opacity: 1, height: "auto" },
+            collapsed: { opacity: 0, height: 0 }
+          }}
+          transition = {{ duration: .3 }}
+        >
           {skillList.map((singleSkill, index) => (
             <div className="skill" key={index}>
               <SkillList
@@ -64,7 +75,7 @@ export default function FormSectionSkills({ skillList, setSkillList }) {
               )}
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

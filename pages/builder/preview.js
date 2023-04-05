@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useReactToPrint } from "react-to-print";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Loading from "@/components/Loading";
 import Layout from "@/components/Layout";
@@ -10,9 +9,10 @@ import BackButton from "@/components/Backbutton";
 
 export default function preview() {
   const title = "Vorschau";
-  const componentRef = useRef();
+  const componentRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [initialData, setInitialData] = useState(getInitialData);
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 3000);
@@ -48,15 +48,15 @@ export default function preview() {
         <Elegant />
       </div>
       <div className="next-step" style={{display: "flex", justifyItems: "center", gap: "1em"}}>
-        <div className="button-box" style={{ width: "20%" }}>
+        <div className="button-box" style={{ width: "25%" }}>
           <span className="button-box__link" onClick={handlePrint}>
-            <Icon icon="fa6-solid:file-arrow-down" />
+            <Icon icon="carbon:generate-pdf" style={{ width: "20%", height: "20%" }}/>
             ausdrucken / herunterladen
           </span>
         </div>
-        <div className="button-box" style={{ width: "20%" }}>
+        <div className="button-box" style={{ width: "25%" }}>
           <span className="button-box__link" onClick={exportJson}>
-            <Icon icon="fa6-solid:bars-progress" />
+            <Icon icon="mdi:code-json" style={{ width: "20%", height: "20%" }}/>
             json herunterladen
           </span>
         </div>
@@ -69,7 +69,7 @@ function getInitialData() {
     return {};
   }
 
-  const initalPersonal = JSON.parse(window.localStorage.getItem("resumeData"));
+  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
 
-  return initalPersonal ?? {};
+  return initalData ?? {};
 }

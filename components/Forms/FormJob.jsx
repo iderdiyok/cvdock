@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
-
+import { motion } from "framer-motion";
 import EducationAndJobList from "@/components/Forms/EducationAndJobList";
 
 const title = "Berufserfahrungen";
 
-export default function FormJob() {
+export default function FormJob({ past }) {
   const router = useRouter();
 
   const resumeData = getInitialData();
@@ -22,15 +22,23 @@ export default function FormJob() {
     setJobList([...jobList, {}]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, past = false) => {
     e.preventDefault();
     resumeData.jobs = [...jobList];
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
-    router.push("/builder/skills");
+    router.push({
+      pathname: "/builder/skills",
+      query: { past },
+    });
   };
   return (
     <>
-      <div className="form-editor">
+      <motion.div
+        className="form-editor"
+        initial={{ x: past ? "100vw" : "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <section className="form-editor__header">
           <h2>{title}</h2>
           <hr />
@@ -74,15 +82,15 @@ export default function FormJob() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
       <div className="next-step">
         <div
           className="button-box"
-          onClick={handleSubmit}
+          onClick={(e) => handleSubmit(e, true)}
           style={{ color: "white" }}
         >
           Weiter
-          <Icon icon="fa6-solid:angle-right" />
+          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}} />
         </div>
       </div>
     </>

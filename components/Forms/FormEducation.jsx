@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
-
+import { motion } from "framer-motion";
 import EducationAndJobList from "@/components/Forms/EducationAndJobList";
 
-export default function EducationForm() {
+export default function EducationForm({ past }) {
   const title = "Bildung und Qualifikationen";
 
   const router = useRouter();
@@ -22,15 +22,23 @@ export default function EducationForm() {
     setEducationList([...educationList, {}]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, past = false) => {
     e.preventDefault();
-    resumeData.educations = [...educationList]
+    resumeData.educations = [...educationList];
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
-    router.push("/builder/job");
+    router.push({
+      pathname: "/builder/job",
+      query: { past },
+    });
   };
   return (
     <>
-      <div className="form-editor">
+      <motion.div
+        className="form-editor"
+        initial={{ x: past ? "100vw" : "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <section className="form-editor__header">
           <h2>{title}</h2>
           <hr />
@@ -76,40 +84,27 @@ export default function EducationForm() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
       <div className="next-step">
         <div
           className="button-box"
           style={{ color: "white" }}
-          onClick={handleSubmit}
+          onClick={(e) => handleSubmit(e, true)}
         >
           Weiter
-          <Icon icon="fa6-solid:angle-right" />
+          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}} />
         </div>
       </div>
     </>
   );
 }
 
-// function getInitialEducationData() {
-//   if (typeof window === "undefined") {
-//     return [{ education: [] }];
-//   }
-
-//   const initalEducationData = JSON.parse(
-//     window.localStorage.getItem("educationData")
-//   );
-
-//   return initalEducationData ?? [{ education: [] }];
-// }
 function getInitialData() {
   if (typeof window === "undefined") {
     return {};
   }
 
-  const initalData = JSON.parse(
-    window.localStorage.getItem("resumeData")
-  );
+  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
 
   return initalData ?? {};
 }

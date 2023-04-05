@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect } from "react";
 import Avatar from "./Avatar";
 import NameAndTitle from "./NameAndTitle";
 import PersonalInfo from "./PersonalInfo";
@@ -9,7 +9,7 @@ import Experience from "./Experience";
 
 export default function Elegant() {
   const resumeData = getInitialData();
-
+  
   useEffect(() => {
     // Schriftarten einbetten
     const link = document.createElement("link");
@@ -33,17 +33,6 @@ export default function Elegant() {
     };
   }, []);
 
-  const meineKlasseRef = useRef(null);
-  const [klasseHoeheInPixeln, setKlasseHoeheInPixeln] = useState(null);
-  const [klasseHoeheInMillimetern, setKlasseHoeheInMillimetern] =
-    useState(null);
-
-  useEffect(() => {
-    const klasseHoehe = meineKlasseRef.current.clientHeight;
-    setKlasseHoeheInPixeln(klasseHoehe);
-    setKlasseHoeheInMillimetern(klasseHoehe / 3.78);
-  }, [klasseHoeheInMillimetern, klasseHoeheInPixeln]);
-
   return (
     <div className="elegant print-container">
       <div className="person-and-contact">
@@ -54,7 +43,7 @@ export default function Elegant() {
         <Languages languages={resumeData.languages} />
         <Contact personal={resumeData.personal} />
       </div>
-      <div className="education-and-job" ref={meineKlasseRef}>
+      <div className="education-and-job">
         <Education educations={resumeData.educations} />
         <Experience jobs={resumeData.jobs} />
       </div>

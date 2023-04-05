@@ -15,6 +15,26 @@ body {
 
 .site-footer{
   margin: 1em auto;
+  .social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .social a {
+    color: $white;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .social a:hover {
+    color: $medium-blue;
+  }
+  
+  .social a:last-of-type {
+    margin-right: 0;
+  }
 }
 .inner-width {
   width: 100%;

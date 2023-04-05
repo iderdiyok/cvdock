@@ -1,0 +1,90 @@
+@use "./colors" as *;
+
+.footer {
+  background-color: $dark-blue;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5em;
+  padding: 1.5rem 0;
+  font-size: 0.8rem;
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    width: 100%;
+    margin: 2em 0 1em 0;
+
+    @media (max-width: 700px) {
+      display: block;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (max-width: 700px) {
+        margin: 2em 0;
+      }
+      a {
+        color: $white;
+        font-size: 0.8rem;
+        margin-right: 1rem;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: $light-blue;
+        }
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+    .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 1rem;
+      p {
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 700px) {
+        display: block;
+        text-align: center;
+      }
+    }
+
+    .social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon{
+        height: 28px;
+        width: 28px;
+      }
+      a {
+        color: $white;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: $light-blue;
+        }
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import Loading from "@/components/Loading";
 import useDisplaySize from "@/hooks/useDisplaySize";
 import BackButton from "@/components/Backbutton";
+import { useRouter } from "next/router";
 
 const FormEducation = dynamic(
   () => import("@/components/Forms/FormEducation"),
@@ -17,6 +18,8 @@ const FormEducation = dynamic(
 const title = "Bildung und Qualifikationen";
 
 export default function education() {
+  const router = useRouter()
+  const { past } = router.query
   const isTabletSize = useDisplaySize();
   return (
     <Layout title={title}>
@@ -26,7 +29,7 @@ export default function education() {
         <BuilderProgressBar width="30%" education={true} />
       )}
 
-      <FormEducation />
+      <FormEducation past={past}/>
     </Layout>
   );
 }
