@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import ImageCropDialog from "../ImageCropDialog";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function FormPersonalInfo({ past }) {
   const title = "Personaldaten";
@@ -63,7 +64,7 @@ export default function FormPersonalInfo({ past }) {
   };
 
   return (
-    <>
+    <div className="container">
       {selectedAvatar ? (
         <ImageCropDialog
           imageUrl={selectedAvatar.imageUrl}
@@ -99,9 +100,13 @@ export default function FormPersonalInfo({ past }) {
                 >
                   {personal.avatar ? (
                     <>
-                      <img
+                      <Image
                         src={personal.avatar.croppedImageUrl}
                         alt="Preview"
+                        width={500}
+                        height={500}
+                        sizes="(max-width: 52rem) 90vw, 48rem"
+                        priority
                       />
                       <Icon
                         className="iconClose"
@@ -288,10 +293,10 @@ export default function FormPersonalInfo({ past }) {
           onClick={(e) => handleSubmit(e, true)}
         >
           Weiter
-          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}}/>
+          <Icon icon="fa6-solid:arrow-right" style={{ marginLeft: ".5em" }} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -26,7 +26,7 @@ export default function FormSkills({ past }) {
     router.push("/builder/preview");
   };
   return (
-    <>
+    <div className="container">
       <motion.div
         className="form-editor"
         initial={{ x: past ? "100vw" : "-100vw" }}
@@ -58,7 +58,7 @@ export default function FormSkills({ past }) {
           <Icon icon="mdi:print-preview" />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 function getInitialData() {

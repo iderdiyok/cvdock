@@ -32,7 +32,7 @@ export default function FormJob({ past }) {
     });
   };
   return (
-    <>
+    <div className="container">
       <motion.div
         className="form-editor"
         initial={{ x: past ? "100vw" : "-100vw" }}
@@ -93,7 +93,7 @@ export default function FormJob({ past }) {
           <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 function getInitialData() {

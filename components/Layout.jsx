@@ -25,9 +25,9 @@ export default function Layout({ title, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Header />
-      <main className="site-main inner-width">{children}</main>
+      <main className="site-main">{children}</main>
       <Footer />
-      <div class="gtranslate_wrapper"></div>
+      <div className="gtranslate_wrapper"></div>
     </div>
   );
 }

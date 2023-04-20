@@ -6,7 +6,7 @@ export default function Avatar({ avatar }) {
     // eslint-disable-next-line react/jsx-no-undef
     <Image
       src={
-        avatar.croppedImageUrl
+        avatar?.croppedImageUrl
           ? avatar.croppedImageUrl
           : "/img/no_image.jpg"
       }

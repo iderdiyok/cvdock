@@ -13,77 +13,90 @@
 
   .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
     margin: 2em 0 1em 0;
 
     @media (max-width: 700px) {
       display: block;
     }
-
-    .links {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
+    .about {
+      width: 50%;
       @media (max-width: 700px) {
-        margin: 2em 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
       }
-      a {
-        color: $white;
-        font-size: 0.8rem;
-        margin-right: 1rem;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-          color: $light-blue;
+      .logo_white {
+        width: 100px;
+      }
+      .text {
+        p {
+          font-size: 0.8rem;
         }
 
-        &:last-of-type {
-          margin-right: 0;
+        @media (max-width: 700px) {
+          display: block;
+          text-align: center;
         }
       }
     }
-    .text {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 1rem;
-      p {
-        font-size: 0.8rem;
-      }
-
-      @media (max-width: 700px) {
-        display: block;
-        text-align: center;
-      }
-    }
-
     .social {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .icon{
-        height: 28px;
-        width: 28px;
+      h2 {
+        text-align: right;
+        @media (max-width: 700px) {
+          text-align: center;
+        }
       }
-      a {
-        color: $white;
-        font-size: 1.2rem;
-        margin-right: 1rem;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-          color: $light-blue;
+      .accounts {
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 700px) {
+          justify-content: center;
         }
-
-        &:last-of-type {
-          margin-right: 0;
+        .icon {
+          height: 28px;
+          width: 28px;
         }
+        a {
+          color: $white;
+          font-size: 1.2rem;
+          margin-right: 1rem;
+          transition: color 0.2s ease-in-out;
+
+          &:hover {
+            color: $light-blue;
+          }
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  .links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 700px) {
+      margin: 2em 0;
+    }
+    a {
+      color: $white;
+      font-size: 0.8rem;
+      margin-right: 1rem;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: $light-blue;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
       }
     }
   }

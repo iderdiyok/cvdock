@@ -25,10 +25,10 @@ export default function addJsonFile() {
         document.getElementById("fileInput").click();
       };
   return (
-    <div className="button-box" style={{ margin: "0 auto" }}>
-      <div className="button-box__link" onClick={importJsonClick}>
-      <Icon icon="mdi:code-json" style={{ width: "20%", height: "20%" }}/>
-        JSON-Data importieren
+    <div className="button-box container" style={{width: "30%", margin: "0 auto" }} onClick={importJsonClick}>
+      <div className="button-box__link" style={{display: "flex", justifyContent: "center"}}>
+      <Icon icon="mdi:code-json" style={{ width: "32px", height: "32px" }}/>
+        <span>JSON-Data importieren</span>
         <input
           id="fileInput"
           type="file"

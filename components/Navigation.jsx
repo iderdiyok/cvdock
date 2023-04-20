@@ -24,7 +24,7 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="site-navigation container">
+      <nav className="site-navigation">
         <Image
           className="site-navigation__logo"
           src={logo}

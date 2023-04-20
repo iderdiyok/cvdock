@@ -1,95 +1,23 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import imgCreate from "@/img/create.png";
-import imgData from "@/img/data.png";
-import imgExport from "@/img/export.png";
-import imgUpload from "@/img/upload.png";
-import imgSecurity from "@/img/security.png";
-import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
-export default function FaqContent({ onBuild }) {
+export default function FaqContent() {
   const [activeSection, setActiveSection] = useState(0);
 
   const handleSectionClick = (sectionIndex) => {
     setActiveSection(sectionIndex);
   };
 
-  const variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.6,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-    },
-  };
-
   return (
     <section className="faq container">
       <div className="subtitle">
-        <h2>Frequently Asked Questions</h2>
-        <h4>Antworten auf Ihre Fragen</h4>
+        <h1>Frequently Asked Questions</h1>
+        <h3>Antworten auf Ihre Fragen</h3>
       </div>
 
       <div className="content">
-        <article className="animation" id="animation">
-          <AnimatePresence>
-            <motion.img
-              key={0}
-              src="/img/create.png"
-              alt="cvdock"
-              className={activeSection === 0 ? "active" : "inactive"}
-              variants={variants}
-              initial="hidden"
-              animate={activeSection === 0 ? "visible" : "hidden"}
-              exit="hidden"
-            />
-            <motion.img
-              key={1}
-              src="/img/data.png"
-              alt="cvdock"
-              className={activeSection === 1 ? "active" : "inactive"}
-              variants={variants}
-              initial="hidden"
-              animate={activeSection === 1 ? "visible" : "hidden"}
-              exit="hidden"
-            />
-            <motion.img
-              key={2}
-              src="/img/export.png"
-              alt="cvdock"
-              className={activeSection === 2 ? "active" : "inactive"}
-              variants={variants}
-              initial="hidden"
-              animate={activeSection === 2 ? "visible" : "hidden"}
-              exit="hidden"
-            />
-            <motion.img
-              key={3}
-              src="/img/upload.png"
-              alt="cvdock"
-              className={activeSection === 3 ? "active" : "inactive"}
-              variants={variants}
-              initial="hidden"
-              animate={activeSection === 3 ? "visible" : "hidden"}
-              exit="hidden"
-            />
-            <motion.img
-              key={4}
-              src="/img/security.png"
-              alt="cvdock"
-              className={activeSection === 4 ? "active" : "inactive"}
-              variants={variants}
-              initial="hidden"
-              animate={activeSection === 4 ? "visible" : "hidden"}
-              exit="hidden"
-            />
-          </AnimatePresence>
-        </article>
         <article className="info">
           <section
-            className={`first-area ${activeSection === 0 ? "active" : ""}`}
+            className={`text-area ${activeSection === 0 ? "active" : ""}`}
             onClick={() => handleSectionClick(0)}
           >
             <h2>Warum sollten Sie unseren CV-Generator verwenden?</h2>
@@ -102,7 +30,7 @@ export default function FaqContent({ onBuild }) {
             </p>
           </section>
           <section
-            className={`second-area ${activeSection === 1 ? "active" : ""}`}
+            className={`text-area ${activeSection === 1 ? "active" : ""}`}
             onClick={() => handleSectionClick(1)}
           >
             <h2>Welche Daten werden benötigt?</h2>
@@ -114,7 +42,7 @@ export default function FaqContent({ onBuild }) {
             </p>
           </section>
           <section
-            className={`lst-area ${activeSection === 2 ? "active" : ""}`}
+            className={`text-area ${activeSection === 2 ? "active" : ""}`}
             onClick={() => handleSectionClick(2)}
           >
             <h2>Wie kann ich meinen Lebenslauf exportieren?</h2>
@@ -132,7 +60,7 @@ export default function FaqContent({ onBuild }) {
           </section>
 
           <section
-            className={`lst-area ${activeSection === 3 ? "active" : ""}`}
+            className={`text-area ${activeSection === 3 ? "active" : ""}`}
             onClick={() => handleSectionClick(3)}
           >
             <h2>Wie kann ich meinen Lebenslauf importieren?</h2>
@@ -148,7 +76,7 @@ export default function FaqContent({ onBuild }) {
             </p>
           </section>
           <section
-            className={`lst-area ${activeSection === 4 ? "active" : ""}`}
+            className={`text-area ${activeSection === 4 ? "active" : ""}`}
             onClick={() => handleSectionClick(4)}
           >
             <h2>Wo werden meine Daten gespeichert?</h2>
@@ -163,14 +91,10 @@ export default function FaqContent({ onBuild }) {
               sind.
             </p>
           </section>
-          <div
-            className="button-box"
-            style={{ margin: "1em 0", width: "auto" }}
-            onClick={onBuild}
-          >
-            <div className="button-box__link">Jetzt testen</div>
-          </div>
         </article>
+      </div>
+      <div className="subTitle" style={{textAlign: "center", marginBottom: "5em"}}>
+        <h2 style={{fontFamily: "__Outfit_a9eef7"}}>Haben Sie noch weitere Fragen? <a href="#">Kontaktiere uns.</a> </h2>
       </div>
     </section>
   );

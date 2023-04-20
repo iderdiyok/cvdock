@@ -44,10 +44,10 @@ export default function preview() {
   return (
     <Layout title={title}>
       <BackButton />
-      <div id="print-content" ref={componentRef}>
+      <div id="print-content container" ref={componentRef}>
         <Elegant />
       </div>
-      <div className="next-step" style={{display: "flex", justifyItems: "center", gap: "1em"}}>
+      <div className="next-step container" style={{display: "flex", justifyItems: "center", gap: "1em"}}>
         <div className="button-box" style={{ width: "25%" }}>
           <span className="button-box__link" onClick={handlePrint}>
             <Icon icon="carbon:generate-pdf" style={{ width: "20%", height: "20%" }}/>

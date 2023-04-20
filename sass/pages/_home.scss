@@ -43,6 +43,14 @@
       display: none;
     }
   }
+  iframe {
+    position: absolute;
+    top: 7em;
+    left: 39em;
+    z-index: -1;
+    width: 50%;
+    height: 120%;
+  }
 }
 .introductionSection {
   background-color: $light-grey;
@@ -67,12 +75,12 @@
 
 .faq {
   .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    @media (max-width: 700px) {
-      display: block;
-    }
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    // align-items: center;
+    // @media (max-width: 700px) {
+    //   display: block;
+    // }
     .animation .active {
       // display: inline-block;
       opacity: 1;
@@ -102,6 +110,12 @@
           font-size: 1.1em;
           line-height: 1.4em;
         }
+        &:hover {
+          background-color: $light-grey;
+        }
+        &:hover > h2 {
+          color: $medium-blue;
+        }
       }
       .active {
         background-color: $light-grey;
@@ -112,15 +126,26 @@
         display: block;
         height: auto;
       }
+      .active h2 {
+        color: $medium-blue;
+      }
     }
   }
 }
 
 .feature {
   text-align: center;
-  margin-top: 5em;
+  margin: 5em 0;
+  padding: 2em 0;
+  color: white;
+  background-color: $dark-blue;
+  width: 100%;
+  .subtitle {
+    margin: 3em 0;
+  }
   .grid {
     display: flex;
+    gap: 2em;
     @media (max-width: 700px) {
       display: block;
       margin-bottom: 3em;
@@ -129,38 +154,49 @@
       transition: all 0.5s ease;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      background-color: rgba(255, 255, 255, 0.8);
+      justify-content: center;
+      color: $dark-blue;
+      background-color: #fafafa;
       border-radius: 8px;
       padding: 16px;
-      &:hover {
-        background-color: #fafafa;
+      margin: 2em 0;
+      cursor: default;
+      &:hover > h2 {
+        color: $medium-blue;
       }
-
       h3,
       p {
         text-align: center;
         margin: 0;
       }
-      h3 {
+      h2 {
+        font-family: __Outfit_a9eef7;
         font-size: 1.5rem;
-        margin-bottom: 1em;
       }
       p {
         font-size: 1.1rem;
         margin: 1rem 0;
       }
-
-      .image-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 200px;
+    }
+  }
+  .imagesSection {
+    margin: 5em 0 2em 0;
+    .images {
+      .image {
+        width: 100%;
+        padding: 1em;
+        border-radius: 10px;
         img {
-          width: 100%;
-          height: 100%;
+          width: 70%;
+          -o-object-fit: cover;
           object-fit: cover;
+          border-radius: 10px;
+          box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+        }
+        .imageText {
+          text-align: center;
+          color: white;
+          font-size: 1.1em;
         }
       }
     }
@@ -168,8 +204,7 @@
 }
 .buttonSection {
   text-align: center;
-  margin-top: 5em;
-  margin-bottom: 5em;
+  margin-bottom: 3em;
   .buttonContainer {
     .button {
       font-size: 1.2em;
@@ -178,7 +213,7 @@
     }
   }
   .button-box {
-    width: 50%;
+    width: 30%;
     margin: auto;
     @media (max-width: 700px) {
       width: 100%;
