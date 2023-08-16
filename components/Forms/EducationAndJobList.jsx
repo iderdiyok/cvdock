@@ -5,6 +5,15 @@ import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { theme, modules } from "quillOptions";
 
+function FieldInput({ id, label, value, onChange }) {
+  return (
+    <div className="form-editor__content__input-label-flex">
+      <label htmlFor={id}>{label}</label>
+      <input type="text" id={id} value={value} onChange={onChange} />
+    </div>
+  );
+}
+
 export default function EducationAndJobList({
   field1,
   field2,
@@ -33,54 +42,39 @@ export default function EducationAndJobList({
   return (
     <section className="form-editor__content">
       <div className="form-editor__content__grid--col-2">
-        <div className="form-editor__content__input-label-flex">
-          <label htmlFor="start_date">Startdatum</label>
-          <input
-            type="text"
-            id="start_date"
-            value={currentData?.start_date}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-editor__content__input-label-flex">
-          <label htmlFor="end_date">Enddatum</label>
-          <input
-            type="text"
-            id="end_date"
-            value={currentData?.end_date}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <div className="form-editor__content__grid--col-2">
-        <div className="form-editor__content__input-label-flex">
-          <label htmlFor={field1_id}>{field1}</label>
-          <input
-            type="text"
-            id={field1_id}
-            value={currentData[field1_id]}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-editor__content__input-label-flex">
-          <label htmlFor="city">Stadt</label>
-          <input
-            type="text"
-            id="city"
-            value={currentData?.city}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <div className="form-editor__content__input-label-flex">
-        <label htmlFor={field2_id}>{field2}</label>
-        <input
-          type="text"
-          id={field2_id}
-          value={currentData[field2_id]}
+        <FieldInput
+          id="start_date"
+          label="Startdatum"
+          value={currentData?.start_date}
+          onChange={handleChange}
+        />
+        <FieldInput
+          id="end_date"
+          label="Enddatum"
+          value={currentData?.end_date}
           onChange={handleChange}
         />
       </div>
+      <div className="form-editor__content__grid--col-2">
+        <FieldInput
+          id={field1_id}
+          label={field1}
+          value={currentData[field1_id]}
+          onChange={handleChange}
+        />
+        <FieldInput
+          id="city"
+          label="Stadt"
+          value={currentData?.city}
+          onChange={handleChange}
+        />
+      </div>
+      <FieldInput
+        id={field2_id}
+        label={field2}
+        value={currentData[field2_id]}
+        onChange={handleChange}
+      />
       <div className="form-editor__content__text-area">
         <div className="form-editor__content__input-label-flex">
           <label htmlFor="description">Beschreibung</label>

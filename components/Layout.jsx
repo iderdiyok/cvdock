@@ -15,11 +15,11 @@ export default function Layout({ title, children }) {
         <link rel="icon" href="/favicon.png" />
         <meta
           name="description"
-          content="Erstellen Sie schnell und einfach Ihren Lebenslauf mit unserem kostenlosen CV-Generator. Wählen Sie aus mehreren Vorlagen und speichern Sie Ihre CV als PDF-Datei."
+          content="Nutzen Sie den kostenlosen CV-Generator von cvdock, um mühelos einen professionellen Lebenslauf zu erstellen. Wählen Sie aus verschiedenen Vorlagen und speichern Sie Ihren CV als PDF-Datei."
         />
         <meta
           name="keywords"
-          content="Lebenslauf, CV, Generator, Vorlagen, PDF, kostenlos, online"
+          content="Lebenslauf, CV, Generator, Vorlagen, PDF, kostenlos, online, cvdock"
         />
         <meta name="author" content="Ilhan Derdiyok" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

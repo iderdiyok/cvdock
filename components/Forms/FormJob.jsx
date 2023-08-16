@@ -1,31 +1,45 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import EducationAndJobList from "@/components/Forms/EducationAndJobList";
+import { useDispatch, useSelector } from "react-redux";
+import { updateJobs } from "../../store";
 
-const title = "Berufserfahrungen";
+import EducationAndJobList from "@/components/Forms/EducationAndJobList";
+import NextStepButton from "../NextStepButton";
 
 export default function FormJob({ past }) {
+  const title = "Berufserfahrungen";
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const resumeData = getInitialData();
-  const [jobList, setJobList] = useState(resumeData.jobs);
+  // localStorage-Zustand für Jobsdaten
+  const storedJobData = JSON.parse(localStorage.getItem("jobData"));
+  // Redux-Zustand für Jobsdaten
+  const jobData = useSelector((state) => state.data.jobs);
+
+  // Wenn Local Storage-Daten vorhanden sind, setzen Sie den Redux-Zustand
+  useEffect(() => {
+    if (storedJobData) {
+      dispatch(updateJobs(storedJobData));
+    }
+  }, []);
+  
 
   const handleJobRemove = (index) => {
-    const list = [...jobList];
+    const list = [...jobData];
     list.splice(index, 1);
-    setJobList(list);
+    dispatch(updateJobs(list));
   };
 
   const handleJobAdd = () => {
-    setJobList([...jobList, {}]);
+    const updatedJobData = [...jobData, {}];
+    dispatch(updateJobs(updatedJobData));
   };
 
   const handleSubmit = (e, past = false) => {
     e.preventDefault();
-    resumeData.jobs = [...jobList];
-    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    localStorage.setItem("jobData", JSON.stringify(jobData));
     router.push({
       pathname: "/builder/skills",
       query: { past },
@@ -44,16 +58,16 @@ export default function FormJob({ past }) {
           <hr />
         </section>
         <div className="jobs">
-          {jobList.map((singleJob, index) => (
+          {jobData.map((singleJob, index) => (
             <div className="job" key={index}>
               <EducationAndJobList
                 field1="Position"
                 field2="Unternehmen"
-                currentDataList={jobList}
-                updateCurrentDataList={setJobList}
+                currentDataList={jobData}
+                updateCurrentDataList={(newList) => dispatch(updateJobs(newList))}
                 index={index}
               />
-              {jobList.length !== 1 && (
+              {jobData.length !== 1 && (
                 <>
                   <div className="form-editor__content__function-buttons--end">
                     <button
@@ -68,7 +82,7 @@ export default function FormJob({ past }) {
                   <hr />
                 </>
               )}
-              {jobList.length - 1 === index && jobList.length < 4 && (
+              {jobData.length - 1 === index && jobData.length < 4 && (
                 <div className="form-editor__content__function-buttons--w-100">
                   <button
                     className="add-new-item-button"
@@ -83,16 +97,7 @@ export default function FormJob({ past }) {
           ))}
         </div>
       </motion.div>
-      <div className="next-step">
-        <div
-          className="button-box"
-          onClick={(e) => handleSubmit(e, true)}
-          style={{ color: "white" }}
-        >
-          Weiter
-          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}} />
-        </div>
-      </div>
+      <NextStepButton handleSubmit={handleSubmit} text="Weiter" icon="fa6-solid:arrow-right"/>
     </div>
   );
 }

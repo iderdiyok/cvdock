@@ -1,6 +1,7 @@
+import { Provider } from "react-redux";
+import store from "../store";
 import "../sass/style.scss";
 import { Outfit } from "@next/font/google";
-
 const outfitBold = Outfit({ weight: "700", subsets: ["latin"] });
 const outfitRegular = Outfit({ weight: "400", subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }) {
     h5,
     h6,
   `}</style>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </>
   );
 }

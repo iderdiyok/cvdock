@@ -1,36 +1,50 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateEducations } from "../../store";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import EducationAndJobList from "@/components/Forms/EducationAndJobList";
+import NextStepButton from "../NextStepButton";
 
 export default function EducationForm({ past }) {
   const title = "Bildung und Qualifikationen";
-
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const resumeData = getInitialData();
-  const [educationList, setEducationList] = useState(resumeData.educations);
+  // localStorage-Zustand für Bildungsdaten
+  const storedEducationData = JSON.parse(localStorage.getItem("educationData"));
+  // Redux-Zustand für Bildungsdaten
+  const educationData = useSelector((state) => state.data.educations);
+
+  // Wenn Local Storage-Daten vorhanden sind, setzen Sie den Redux-Zustand
+  useEffect(() => {
+    if (storedEducationData) {
+      dispatch(updateEducations(storedEducationData));
+    }
+  }, []);
 
   const handleEducationRemove = (index) => {
-    const list = [...educationList];
-    list.splice(index, 1);
-    setEducationList(list);
+    const updatedEducationData = [...educationData];
+    updatedEducationData.splice(index, 1);
+    dispatch(updateEducations(updatedEducationData));
   };
 
   const handleEducationAdd = () => {
-    setEducationList([...educationList, {}]);
+    const updatedEducationData = [...educationData, {}];
+    dispatch(updateEducations(updatedEducationData));
   };
 
   const handleSubmit = (e, past = false) => {
     e.preventDefault();
-    resumeData.educations = [...educationList];
-    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    localStorage.setItem("educationData", JSON.stringify(educationData));
     router.push({
       pathname: "/builder/job",
       query: { past },
     });
   };
+
   return (
     <div className="container">
       <motion.div
@@ -44,16 +58,16 @@ export default function EducationForm({ past }) {
           <hr />
         </section>
         <div className="educations">
-          {educationList.map((singleEducation, index) => (
+          {educationData.map((singleEducation, index) => (
             <div className="education" key={index}>
               <EducationAndJobList
                 field1="Qualifikation"
                 field2="Institut"
-                currentDataList={educationList}
-                updateCurrentDataList={setEducationList}
+                currentDataList={educationData}
+                updateCurrentDataList={(newList) => dispatch(updateEducations(newList))}
                 index={index}
               />
-              {educationList.length !== 1 && (
+              {educationData.length !== 1 && (
                 <>
                   <div className="form-editor__content__function-buttons--end">
                     <button
@@ -69,8 +83,8 @@ export default function EducationForm({ past }) {
                 </>
               )}
 
-              {educationList.length - 1 === index &&
-                educationList.length < 4 && (
+              {educationData.length - 1 === index &&
+                educationData.length < 4 && (
                   <div className="form-editor__content__function-buttons--w-100">
                     <button
                       className="add-new-item-button"
@@ -85,26 +99,7 @@ export default function EducationForm({ past }) {
           ))}
         </div>
       </motion.div>
-      <div className="next-step">
-        <div
-          className="button-box"
-          style={{ color: "white" }}
-          onClick={(e) => handleSubmit(e, true)}
-        >
-          Weiter
-          <Icon icon="fa6-solid:arrow-right" style={{marginLeft: ".5em"}} />
-        </div>
-      </div>
+      <NextStepButton handleSubmit={handleSubmit} text="Weiter" icon="fa6-solid:arrow-right"/>
     </div>
   );
-}
-
-function getInitialData() {
-  if (typeof window === "undefined") {
-    return {};
-  }
-
-  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
-
-  return initalData ?? {};
 }

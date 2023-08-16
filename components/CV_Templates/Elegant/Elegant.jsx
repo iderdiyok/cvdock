@@ -1,4 +1,6 @@
 import { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import Avatar from "./Avatar";
 import NameAndTitle from "./NameAndTitle";
 import PersonalInfo from "./PersonalInfo";
@@ -6,9 +8,12 @@ import Languages from "./Languages";
 import Contact from "./Contact";
 import Education from "./Education";
 import Experience from "./Experience";
+import Skills from "./Skills";
 
-export default function Elegant() {
-  const resumeData = getInitialData();
+export default function Elegant({ pageNum }) {
+  console.log({ pageNum });
+  // Redux store data
+  const resumeData = useSelector((state) => state.data);
 
   useEffect(() => {
     // Schriftarten einbetten
@@ -33,40 +38,40 @@ export default function Elegant() {
     };
   }, []);
 
-  const meineKlasseRef = useRef(null);
-  const [klasseHoeheInPixeln, setKlasseHoeheInPixeln] = useState(null);
-  const [klasseHoeheInMillimetern, setKlasseHoeheInMillimetern] =
-    useState(null);
+  // Anzahl der Einträge pro Seite
+  const entriesPerPage = 2;
 
-  useEffect(() => {
-    const klasseHoehe = meineKlasseRef.current.clientHeight;
-    setKlasseHoeheInPixeln(klasseHoehe);
-    setKlasseHoeheInMillimetern(klasseHoehe / 3.78);
-  }, [klasseHoeheInMillimetern, klasseHoeheInPixeln]);
+  // Bildungseinträge auf dieser Seite
+  const educationEntries = resumeData?.educations?.slice(
+    (pageNum - 1) * entriesPerPage,
+    pageNum * entriesPerPage
+  );
+
+  // Berufseinträge auf dieser Seite
+  const jobEntries = resumeData?.jobs?.slice(
+    (pageNum - 1) * entriesPerPage,
+    pageNum * entriesPerPage
+  );
 
   return (
-    <div className="elegant print-container">
-      <div className="person-and-contact">
-        <Avatar avatar={resumeData.personal.avatar} />
-        <NameAndTitle personal={resumeData.personal} />
-        <PersonalInfo personal={resumeData.personal} />
+    <>
+      {resumeData && (
+        <div className="elegant print-container">
+          <div className="person-and-contact">
+            <Avatar avatar={resumeData.personal?.avatar} />
+            <NameAndTitle personal={resumeData.personal} />
+            <PersonalInfo personal={resumeData.personal} />
 
-        <Languages languages={resumeData.languages} />
-        <Contact personal={resumeData.personal} />
-      </div>
-      <div className="education-and-job" ref={meineKlasseRef}>
-        <Education educations={resumeData.educations} />
-        <Experience jobs={resumeData.jobs} />
-      </div>
-    </div>
+            <Languages languages={resumeData.languages} />
+            <Contact personal={resumeData.personal} />
+          </div>
+          <div className="education-and-job">
+            <Education educations={educationEntries} />
+            <Experience jobs={jobEntries} />
+            {pageNum === 2 && <Skills skills={resumeData.skills} />}
+          </div>
+        </div>
+      )}
+    </>
   );
-}
-function getInitialData() {
-  if (typeof window === "undefined") {
-    return {};
-  }
-
-  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
-
-  return initalData ?? {};
 }

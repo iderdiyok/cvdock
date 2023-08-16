@@ -94,7 +94,7 @@ export default function FaqContent() {
         </article>
       </div>
       <div className="subTitle" style={{textAlign: "center", marginBottom: "5em"}}>
-        <h2 style={{fontFamily: "__Outfit_a9eef7"}}>Haben Sie noch weitere Fragen? <a href="#">Kontaktiere uns.</a> </h2>
+        <h2 style={{fontFamily: "'__Outfit_cf2c97', '__Outfit_Fallback_cf2c97'"}}>Haben Sie noch weitere Fragen? <a href="#">Kontaktiere uns.</a> </h2>
       </div>
     </section>
   );

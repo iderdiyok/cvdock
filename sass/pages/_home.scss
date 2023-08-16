@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 2fr 2fr;
   align-items: center;
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     display: block;
     margin-bottom: 3em;
     padding: 2em;
@@ -39,7 +39,7 @@
     padding: 22em;
     background-position: -25em 1em;
     background-repeat: no-repeat;
-    @media (max-width: 700px) {
+    @media (max-width: 900px) {
       display: none;
     }
   }
@@ -54,7 +54,7 @@
 }
 .introductionSection {
   background-color: $light-grey;
-  padding: 7em;
+  padding: 6em;
   border-radius: 10px;
   @media (max-width: 700px) {
     padding: 3em;
@@ -65,6 +65,7 @@
     line-height: 1.3em;
     // margin-bottom: 4em;
     letter-spacing: 1.2px;
+    
     @media (max-width: 700px) {
       font-size: 1.6em;
       line-height: 1.2em;
@@ -138,7 +139,7 @@
   margin: 5em 0;
   padding: 2em 0;
   color: white;
-  background-color: $dark-blue;
+  background-image: linear-gradient(to top, #233964, #224075, #1f4687, #1b4d9a, #1654ac, #125cb7, #0c65c3, #006dce, #0079d4, #0085d9, #0090de, #009be1);
   width: 100%;
   .subtitle {
     margin: 3em 0;
@@ -170,7 +171,7 @@
         margin: 0;
       }
       h2 {
-        font-family: __Outfit_a9eef7;
+        font-family: '__Outfit_cf2c97', '__Outfit_Fallback_cf2c97';
         font-size: 1.5rem;
       }
       p {
@@ -216,7 +217,7 @@
     width: 30%;
     margin: auto;
     @media (max-width: 700px) {
-      width: 100%;
+      width: 80%;
     }
   }
 }

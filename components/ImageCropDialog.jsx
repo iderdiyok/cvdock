@@ -85,7 +85,7 @@ const ImageCropDialog = ({
         <div className="button-area">
           <button className="button-box" onClick={onCancel} style={{color:"white"}}>Cancel</button>
           <button className="button-box" onClick={onResetImage} style={{color:"white"}}>Reset</button>
-          <button classname="button-box" onClick={onCrop}>Crop</button>
+          <button className="button-box" onClick={onCrop}>Crop</button>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import Ticker from 'framer-motion-ticker';
 import Image from "next/image";
+
 import johnDoCv from "@/img/john-do-cv.png";
-import { useState } from 'react';
 
 export default function CVTemplatesTicker() {
     const [isPlaying, setIsPlaying] = useState(true)

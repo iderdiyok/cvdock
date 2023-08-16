@@ -1,28 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSkills } from "../../store";
+import { updateLanguages } from "../../store";
+import { updateHobbys } from "../../store";
+
 import FormSkills_SectionSkills from "@/components/Forms/FormSkills_SectionSkills";
 import FormSkills_SectionLanguages from "@/components/Forms/FormSkills_SectionLanguages";
 import FormSkills_SectionHobbys from "@/components/Forms/FormSkills_SectionHobbys";
-const title = "Skills, Sprachen und Hobbys";
+import NextStepButton from "../NextStepButton";
 
 export default function FormSkills({ past }) {
+  const title = "Skills, Sprachen und Hobbys";
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const resumeData = getInitialData();
-  const [skillList, setSkillList] = useState(resumeData.skills);
-  const [languageList, setLanguageList] = useState(resumeData.languages);
-  const [hobbys, setHobbys] = useState(resumeData.hobbys);
+  // localStorage-Zustand für Skills-, Languages-, Hobbysdaten
+  const storedSkillsData = JSON.parse(localStorage.getItem("skillsData"));
+  const storedLanguageData = JSON.parse(localStorage.getItem("languageData"));
+  const storedHobbysData = JSON.parse(localStorage.getItem("hobbysData"));
+  
+  // Redux-Zustand für Skills-, Languages-, Hobbysdaten
+  const skillsData = useSelector((state) => state.data.skills);
+  const languageData = useSelector((state) => state.data.languages);
+  const hobbysData = useSelector((state) => state.data.hobbys);
+
+  // Wenn Local Storage-Daten vorhanden sind, setzen Sie den Redux-Zustand
+  useEffect(() => {
+    if (storedSkillsData) {
+      dispatch(updateSkills(storedSkillsData));
+    }
+    if (storedLanguageData) {
+      dispatch(updateLanguages(storedLanguageData));
+    }
+    if (storedHobbysData) {
+      dispatch(updateHobbys(storedHobbysData));
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    resumeData.skills = [...skillList];
-    resumeData.languages = [...languageList];
-    resumeData.hobbys = hobbys;
-
-    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    localStorage.setItem("skillsData", JSON.stringify(skillsData));
+    localStorage.setItem("languageData", JSON.stringify(languageData));
+    localStorage.setItem("hobbysData", JSON.stringify(hobbysData));
     router.push("/builder/preview");
   };
   return (
@@ -39,34 +61,23 @@ export default function FormSkills({ past }) {
           <hr />
         </section>
         <FormSkills_SectionSkills
-          skillList={skillList}
-          setSkillList={setSkillList}
+          skillList={skillsData}
+          setSkillList={(newSkills) => dispatch(updateSkills(newSkills))}
         />
         <FormSkills_SectionLanguages
-          languageList={languageList}
-          setLanguageList={setLanguageList}
+          languageList={languageData}
+          setLanguageList={(newLanguages) => dispatch(updateLanguages(newLanguages))}
         />
-        <FormSkills_SectionHobbys hobbys={hobbys} setHobbys={setHobbys} />
+        <FormSkills_SectionHobbys
+          hobbys={hobbysData}
+          setHobbys={(newHobbys) => dispatch(updateHobbys(newHobbys))}
+        />
       </motion.div>
-      <div className="next-step">
-        <div
-          className="button-box"
-          style={{ color: "white" }}
-          onClick={handleSubmit}
-        >
-          Vorschau
-          <Icon icon="mdi:print-preview" />
-        </div>
-      </div>
+      <NextStepButton
+        handleSubmit={handleSubmit}
+        text="Vorschau"
+        icon="mdi:print-preview"
+      />
     </div>
   );
-}
-function getInitialData() {
-  if (typeof window === "undefined") {
-    return {};
-  }
-
-  const initalData = JSON.parse(window.localStorage.getItem("resumeData"));
-
-  return initalData ?? {};
 }

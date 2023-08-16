@@ -9,15 +9,14 @@ const skillsLevels = [
 export default function SkillList({index, skillList, setSkillList, singleSkillData}){
     const [currentData, updateData] = useState({});
 
-    useEffect(() => updateData(singleSkillData), [singleSkillData]);
+    useEffect(() => updateData(singleSkillData), []);
     useEffect(() => {
         const newList = [...skillList];
         newList[index] = currentData;
         setSkillList(newList);
-      }, [currentData, index, setSkillList, skillList]);
+      }, [currentData, index]);
 
       const handleChange = (e) => {
-        console.log(e.currentTarget.value);
         updateData({
           ...currentData,
           [e.currentTarget.id]:  e.currentTarget.value,

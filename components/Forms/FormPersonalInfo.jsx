@@ -1,18 +1,37 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePersonal } from "../../store";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Icon } from "@iconify/react";
-import ImageCropDialog from "../ImageCropDialog";
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 import Image from "next/image";
+import ImageCropDialog from "../ImageCropDialog";
+import NextStepButton from "../NextStepButton";
 
 export default function FormPersonalInfo({ past }) {
   const title = "Personaldaten";
+  const dispatch = useDispatch();
   const router = useRouter();
 
-  const resumeData = getInitialData();
-  const [personal, updatePersonal] = useState(resumeData.personal);
+  // Store data in localStorage
+  const storedPersonalData = JSON.parse(localStorage.getItem("personalData"));
+
+  const initialPersonalData = useSelector((state) => state.data.personal);
+  const [personalCurrent, updatePersonalCurrent] =
+    useState(initialPersonalData);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
+
+  useEffect(() => {
+    if (storedPersonalData) {
+      dispatch(updatePersonal(storedPersonalData));
+    }
+  }, []);
+
+  useEffect(() => {
+    updatePersonalCurrent(initialPersonalData)
+  }, [initialPersonalData]);
 
   const handleChangeImage = (e) => {
     const avatar = {
@@ -23,8 +42,8 @@ export default function FormPersonalInfo({ past }) {
   };
 
   const handleDeleteImage = (e) => {
-    updatePersonal({
-      ...personal,
+    updatePersonalCurrent({
+      ...personalCurrent,
       avatar: null,
     });
   };
@@ -35,8 +54,8 @@ export default function FormPersonalInfo({ past }) {
 
   const setCroppedImageFor = (crop, zoom, aspect, croppedImageUrl) => {
     const newAvatar = { croppedImageUrl, crop, zoom, aspect };
-    updatePersonal({
-      ...personal,
+    updatePersonalCurrent({
+      ...personalCurrent,
       avatar: newAvatar,
     });
     setSelectedAvatar(null);
@@ -47,16 +66,17 @@ export default function FormPersonalInfo({ past }) {
   };
 
   const handleChange = (e) => {
-    updatePersonal({
-      ...personal,
+    updatePersonalCurrent({
+      ...personalCurrent,
       [e.currentTarget.id]: e.currentTarget.value,
     });
   };
 
   const handleSubmit = (e, past = false) => {
     e.preventDefault();
-    resumeData.personal = personal;
-    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+    dispatch(updatePersonal(personalCurrent));
+
+    localStorage.setItem("personalData", JSON.stringify(personalCurrent));
     router.push({
       pathname: "/builder/education",
       query: { past },
@@ -95,13 +115,15 @@ export default function FormPersonalInfo({ past }) {
                 <label
                   htmlFor="avatar"
                   style={
-                    personal.avatar ? { padding: "0" } : { padding: "1.7em" }
+                    personalCurrent.avatar
+                      ? { padding: "0" }
+                      : { padding: "1.7em" }
                   }
                 >
-                  {personal.avatar ? (
+                  {personalCurrent.avatar ? (
                     <>
                       <Image
-                        src={personal.avatar.croppedImageUrl}
+                        src={personalCurrent.avatar.croppedImageUrl}
                         alt="Preview"
                         width={500}
                         height={500}
@@ -138,7 +160,7 @@ export default function FormPersonalInfo({ past }) {
                   <input
                     type="text"
                     id="first_name"
-                    value={personal.first_name}
+                    value={personalCurrent.first_name}
                     onChange={handleChange}
                   />
                 </div>
@@ -147,7 +169,7 @@ export default function FormPersonalInfo({ past }) {
                   <input
                     type="text"
                     id="last_name"
-                    value={personal.last_name}
+                    value={personalCurrent.last_name}
                     onChange={handleChange}
                   />
                 </div>
@@ -158,7 +180,7 @@ export default function FormPersonalInfo({ past }) {
                   <input
                     type="email"
                     id="email"
-                    value={personal.email}
+                    value={personalCurrent.email}
                     onChange={handleChange}
                   />
                 </div>
@@ -167,7 +189,7 @@ export default function FormPersonalInfo({ past }) {
                   <input
                     type="text"
                     id="phone"
-                    value={personal.phone}
+                    value={personalCurrent.phone}
                     onChange={handleChange}
                   />
                 </div>
@@ -181,7 +203,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="street"
-                  value={personal.street}
+                  value={personalCurrent.street}
                   onChange={handleChange}
                 />
               </div>
@@ -190,7 +212,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="zip_code"
-                  value={personal.zip_code}
+                  value={personalCurrent.zip_code}
                   onChange={handleChange}
                 />
               </div>
@@ -201,7 +223,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="city"
-                  value={personal.city}
+                  value={personalCurrent.city}
                   onChange={handleChange}
                 />
               </div>
@@ -210,7 +232,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="country"
-                  value={personal.country}
+                  value={personalCurrent.country}
                   onChange={handleChange}
                 />
               </div>
@@ -222,7 +244,7 @@ export default function FormPersonalInfo({ past }) {
               <input
                 type="text"
                 id="qualification"
-                value={personal.qualification}
+                value={personalCurrent.qualification}
                 onChange={handleChange}
               />
             </div>
@@ -234,7 +256,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="birthday"
-                  value={personal.birthday}
+                  value={personalCurrent.birthday}
                   onChange={handleChange}
                 />
               </div>
@@ -243,7 +265,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="place_of_birth"
-                  value={personal.place_of_birth}
+                  value={personalCurrent.place_of_birth}
                   onChange={handleChange}
                 />
               </div>
@@ -252,7 +274,7 @@ export default function FormPersonalInfo({ past }) {
                 <select
                   className="form-select-custom"
                   id="gender"
-                  value={personal.gender}
+                  value={personalCurrent.gender}
                   onChange={handleChange}
                 >
                   <option value="0">Select</option>
@@ -269,7 +291,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="website"
-                  value={personal.website}
+                  value={personalCurrent.website}
                   onChange={handleChange}
                 />
               </div>
@@ -278,7 +300,7 @@ export default function FormPersonalInfo({ past }) {
                 <input
                   type="text"
                   id="linkedin"
-                  value={personal.linkedin}
+                  value={personalCurrent.linkedin}
                   onChange={handleChange}
                 />
               </div>
@@ -286,26 +308,11 @@ export default function FormPersonalInfo({ past }) {
           </div>
         </form>
       </motion.div>
-      <div className="next-step">
-        <div
-          className="button-box"
-          style={{ color: "white" }}
-          onClick={(e) => handleSubmit(e, true)}
-        >
-          Weiter
-          <Icon icon="fa6-solid:arrow-right" style={{ marginLeft: ".5em" }} />
-        </div>
-      </div>
+      <NextStepButton
+        handleSubmit={handleSubmit}
+        text="Weiter"
+        icon="fa6-solid:arrow-right"
+      />
     </div>
   );
-}
-
-function getInitialData() {
-  if (typeof window === "undefined") {
-    return {};
-  }
-
-  const initalPersonal = JSON.parse(window.localStorage.getItem("resumeData"));
-
-  return initalPersonal ?? {};
 }

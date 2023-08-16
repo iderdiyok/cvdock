@@ -1,13 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAnimation, motion } from "framer-motion";
-
+import Image from "next/image";
 import { useInView } from "react-intersection-observer";
+import { Parallax } from "react-scroll-parallax";
+
 import CVTemplatesTicker from "./CVTemplatesTicker";
+import select_template from "@/img/icons/template.png";
+import input from "@/img/icons/input.png";
+import pdf_save from "@/img/icons/pdf_save.png";
+import file_save from "@/img/icons/file_save.png";
 
 export default function FeatureContent({ onBuild }) {
-  const item = {
+  const items = [
+    {
+      title: "Vorlage auswählen",
+      description:
+        "Wählen Sie aus mehreren professionellen Vorlagen für Ihren Lebenslauf.",
+      image: select_template,
+    },
+    {
+      title: "Daten eingeben",
+      description:
+        "Geben Sie Ihre persönlichen Daten ein, um Ihren Lebenslauf zu erstellen.",
+      image: input,
+    },
+    {
+      title: "PDF drucken",
+      description:
+        "Speichern Sie Ihren Lebenslauf als PDF-Datei oder drucken Sie ihn direkt aus.",
+      image: pdf_save,
+    },
+    {
+      title: "Daten speichern",
+      description:
+        "Speichern Sie Ihre Daten als JSON-Datei, um sie später wiederzuverwenden.",
+      image: file_save,
+    },
+  ];
+
+  const cardItem = {
     hidden: { scale: 0, top: 100 },
-    show: { scale: 1, top: 30 },
+    show: { scale: 1, top: 10, transition: { ease: "easeOut", duration: 0.5 } },
+  };
+  const imageItem = {
+    hidden: { y: 10, opacity: 0 },
+    show: { y: 0, opacity: 1, transition: { ease: "easeOut", duration: 1 } },
   };
 
   const controls = useAnimation();
@@ -26,44 +63,34 @@ export default function FeatureContent({ onBuild }) {
       </div>
 
       <motion.div
-        variants={item}
+        variants={cardItem}
         ref={ref}
         initial="hidden"
         animate={controls}
         className="grid container"
         style={{ position: "relative" }}
       >
-        <motion.div className="card" whileHover={{ scale: 1.05 }}>
-          <h2>Vorlagen</h2>
-          <p>
-            Wählen Sie aus mehreren professionellen Vorlagen für Ihren
-            Lebenslauf.
-          </p>
-        </motion.div>
-
-        <motion.div className="card" whileHover={{ scale: 1.05 }}>
-          <h2>Daten eingeben</h2>
-          <p>
-            Geben Sie Ihre persönlichen Daten ein, um Ihren Lebenslauf zu
-            erstellen.
-          </p>
-        </motion.div>
-
-        <motion.div className="card" whileHover={{ scale: 1.05 }}>
-          <h2>PDF drucken</h2>
-          <p>
-            Speichern Sie Ihren Lebenslauf als PDF-Datei oder drucken Sie ihn
-            direkt aus.
-          </p>
-        </motion.div>
-
-        <motion.div className="card" whileHover={{ scale: 1.05 }}>
-          <h2>Daten speichern</h2>
-          <p>
-            Speichern Sie Ihre Daten als JSON-Datei, um sie später
-            wiederzuverwenden.
-          </p>
-        </motion.div>
+        {items.map((item, index) => (
+          <div key={index}>
+            <Parallax speed={index * 10}>
+              <motion.div
+                className="card"
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div
+                  initial="hidden"
+                  animate={controls}
+                  variants={imageItem}
+                  ref={ref}
+                >
+                  <Image src={item.image} alt="Parallax" />
+                </motion.div>
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+              </motion.div>
+            </Parallax>
+          </div>
+        ))}
       </motion.div>
 
       <CVTemplatesTicker />
@@ -71,7 +98,7 @@ export default function FeatureContent({ onBuild }) {
       <section className="buttonSection ">
         <div className="button">
           <h2 className="buttonText">
-            Probiere es jetzt aus und erstelle deinen Lebenslauf!
+          Probieren Sie es jetzt aus und erstellen Sie Ihren Lebenslauf!
           </h2>
           <div className="button-box">
             <div className="button-box__link" onClick={onBuild}>

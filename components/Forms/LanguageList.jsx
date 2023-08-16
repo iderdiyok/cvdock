@@ -43,7 +43,7 @@ export default function LanguageList({index, languageList, setLanguageList, sing
                 <div className="form-editor__content__input-label-flex">
                     <label htmlFor="level">Level</label>
                     <select 
-                        class="form-select-custom" 
+                        className="form-select-custom" 
                         id="level"
                         value={currentData?.level}
                         onChange={handleChange} 
