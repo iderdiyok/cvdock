@@ -11,7 +11,6 @@ import Experience from "./Experience";
 import Skills from "./Skills";
 
 export default function Elegant({ pageNum }) {
-  console.log({ pageNum });
   // Redux store data
   const resumeData = useSelector((state) => state.data);
 

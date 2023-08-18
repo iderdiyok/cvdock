@@ -24,7 +24,6 @@ const dataSlice = createSlice({
       state.jobs = action.payload;
     },
     updateSkills: (state, action) => {
-      console.log(action);
       state.skills = action.payload;
     },
     updateLanguages: (state, action) => {

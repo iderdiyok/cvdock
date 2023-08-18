@@ -40,13 +40,6 @@ export default function FeatureContent({ onBuild }) {
     show: { scale: 1, top: 30 },
   };
 
-  const [scrollDirection, setScrollDirection] = useState("down");
-
-  const handleScroll = () => {
-    const newScrollDirection = window.scrollY > 0 ? "up" : "down";
-    setScrollDirection(newScrollDirection);
-  };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -66,7 +59,6 @@ export default function FeatureContent({ onBuild }) {
           variants={itemAnimation}
           className="grid container"
           style={{ position: "relative" }}
-          scrollDirection={scrollDirection}
         >
           {index % 2 !== 0 ? (
             <>
@@ -114,18 +106,9 @@ export default function FeatureContent({ onBuild }) {
   );
 }
 
-function ScrollAnimation({ children, variants,scrollDirection, ...rest }) {
+function ScrollAnimation({ children, variants, ...rest }) {
   const controls = useAnimation();
   const [ref, inView] = useInView();
-
-  useEffect(() => {
-    console.log(scrollDirection);
-    if (inView && scrollDirection === "up") {
-      controls.start("show");
-    } else if (!inView && scrollDirection === "down") {
-      controls.start("hidden");
-    }
-  }, [controls, inView, scrollDirection]);
 
   return (
     <motion.div

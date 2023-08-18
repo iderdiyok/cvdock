@@ -16,7 +16,6 @@ export default function preview() {
   
   // Redux store data
   const resumeData = useSelector((state) => state.data);
-  console.log({resumeData});
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 3000);
@@ -40,10 +39,8 @@ export default function preview() {
       `Zu viele Komponenten im Resume (maximal ${MAX_COMPONENTS} erlaubt)`
     );
   }
-  console.log({ numComponents });
   // Array mit null-Werten, um die Komponenten zu erstellen
   const componentArray = new Array(numComponents).fill(null);
-  console.log({ componentArray });
 
   if (isLoading) {
     return <Loading />;

@@ -1,5 +1,4 @@
 export default function PersonalInfo({ personal }) {
-  console.log({personal});
   return (
     <div className="person">
       {personal.birthday || personal.place_of_birth || personal.street ? (
