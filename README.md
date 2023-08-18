@@ -1,3 +1,4 @@
+![Logo](https://raw.githubusercontent.com/iderdiyok/cvdock/main/public/img/logo.png)
 # CVDock - Your Personal Resume Builder
 
 CVDock is a web application that allows you to create your own resume using a user-friendly interface. The application has been developed using React and Next.js, and it utilizes Redux Toolkit for managing the application state.
