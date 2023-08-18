@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo](https://raw.githubusercontent.com/iderdiyok/cvdock/main/public/img/logo.png)
+# CVDock - Your Personal Resume Builder
 
-## Getting Started
+CVDock is a web application that allows you to create your own resume using a user-friendly interface. The application has been developed using React and Next.js, and it utilizes Redux Toolkit for managing the application state.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Create your own resume by filling out forms.
+- Choose from different templates for the appearance of your resume.
+- Import and export your resume in JSON format.
+- Generate a printable PDF version of your resume.
+- Manage education, work experience, skills, and more in a structured format.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. Make sure you have Node.js installed on your computer.
+2. Clone this repository using the command: `git clone https://github.com/iderdiyok/cvdock.git`
+3. Navigate to the project folder: `cd cvdock`
+4. Install the dependencies using the command: `npm install`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Usage
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Start the development environment using the command: `npm run dev`
+2. Open your web browser and go to: `http://localhost:3000`
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+- You can customize the appearance of the templates in `components/CV_Templates`.
+- The Redux store logic can be found in `store.js`.
+- The main form and preview components are located in `pages/builder`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribution
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+We welcome contributions to improve CVDock. Please fork this repository, work on your changes, and then submit a pull request.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
