@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePersonal } from "../../store";
+import useFieldInput from "../../hooks/useFieldInput";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
@@ -30,7 +31,7 @@ export default function FormPersonalInfo({ past }) {
   }, []);
 
   useEffect(() => {
-    updatePersonalCurrent(initialPersonalData)
+    updatePersonalCurrent(initialPersonalData);
   }, [initialPersonalData]);
 
   const handleChangeImage = (e) => {
@@ -155,120 +156,87 @@ export default function FormPersonalInfo({ past }) {
             </div>
             <div className="form-editor__content__first-line--personalInfo">
               <div className="form-editor__content__grid--col-2">
-                <div className="form-editor__content__input-label-flex">
-                  <label htmlFor="first_name">Vorname</label>
-                  <input
-                    type="text"
-                    id="first_name"
-                    value={personalCurrent.first_name}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-editor__content__input-label-flex">
-                  <label htmlFor="last_name">Nachname</label>
-                  <input
-                    type="text"
-                    id="last_name"
-                    value={personalCurrent.last_name}
-                    onChange={handleChange}
-                  />
-                </div>
+                {useFieldInput({
+                  id: "first_name",
+                  label: "Vorname",
+                  value: personalCurrent.first_name,
+                  onChange: handleChange,
+                })}
+                {useFieldInput({
+                  id: "last_name",
+                  label: "Nachname",
+                  value: personalCurrent.last_name,
+                  onChange: handleChange,
+                })}
               </div>
               <div className="form-editor__content__grid--col-2">
-                <div className="form-editor__content__input-label-flex">
-                  <label htmlFor="e-mail">E-Mail</label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={personalCurrent.email}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-editor__content__input-label-flex">
-                  <label htmlFor="phone">Telefon</label>
-                  <input
-                    type="text"
-                    id="phone"
-                    value={personalCurrent.phone}
-                    onChange={handleChange}
-                  />
-                </div>
+                {useFieldInput({
+                  id: "e-mail",
+                  label: "E-Mail",
+                  value: personalCurrent.email,
+                  onChange: handleChange,
+                })}
+                {useFieldInput({
+                  id: "phone",
+                  label: "Telefon",
+                  value: personalCurrent.phone,
+                  onChange: handleChange,
+                })}
               </div>
             </div>
           </div>
           <div className="form-editor__content__adress-line">
             <div className="form-editor__content__grid--col-2">
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="street">Adresse</label>
-                <input
-                  type="text"
-                  id="street"
-                  value={personalCurrent.street}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="zip_code">Postleitzahl</label>
-                <input
-                  type="text"
-                  id="zip_code"
-                  value={personalCurrent.zip_code}
-                  onChange={handleChange}
-                />
-              </div>
+              {useFieldInput({
+                id: "street",
+                label: "Adresse",
+                value: personalCurrent.street,
+                onChange: handleChange,
+              })}
+              {useFieldInput({
+                id: "zip_code",
+                label: "Postleitzahl",
+                value: personalCurrent.zip_code,
+                onChange: handleChange,
+              })}
             </div>
             <div className="form-editor__content__grid--col-2">
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="city">Stadt</label>
-                <input
-                  type="text"
-                  id="city"
-                  value={personalCurrent.city}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="country">Land</label>
-                <input
-                  type="text"
-                  id="country"
-                  value={personalCurrent.country}
-                  onChange={handleChange}
-                />
-              </div>
+              {useFieldInput({
+                id: "city",
+                label: "Stadt",
+                value: personalCurrent.city,
+                onChange: handleChange,
+              })}
+              {useFieldInput({
+                id: "country",
+                label: "Land",
+                value: personalCurrent.country,
+                onChange: handleChange,
+              })}
             </div>
           </div>
           <div className="form-editor__content__qualification-line">
-            <div className="form-editor__content__input-label-flex">
-              <label htmlFor="qualification">Qualifizierung</label>
-              <input
-                type="text"
-                id="qualification"
-                value={personalCurrent.qualification}
-                onChange={handleChange}
-              />
-            </div>
+            {useFieldInput({
+              id: "qualification",
+              label: "Qualifizierung",
+              value: personalCurrent.qualification,
+              onChange: handleChange,
+            })}
           </div>
           <div className="form-editor__content__birthday-line">
             <div className="form-editor__content__grid--col-3">
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="birthday">Geburtsdatum</label>
-                <input
-                  type="text"
-                  id="birthday"
-                  value={personalCurrent.birthday}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="place_of_birth">Geburtsort</label>
-                <input
-                  type="text"
-                  id="place_of_birth"
-                  value={personalCurrent.place_of_birth}
-                  onChange={handleChange}
-                />
-              </div>
+              {useFieldInput({
+                id: "birthday",
+                label: "Geburtsdatum",
+                value: personalCurrent.birthday,
+                onChange: handleChange,
+              })}
+              {useFieldInput({
+                id: "place_of_birth",
+                label: "Geburtsort",
+                value: personalCurrent.place_of_birth,
+                onChange: handleChange,
+              })}
               <div className="form-editor__content__input-label-flex">
                 <label htmlFor="gender">Geschlect</label>
                 <select
@@ -286,24 +254,18 @@ export default function FormPersonalInfo({ past }) {
           </div>
           <div className="form-editor__content__social-platforms-line">
             <div className="form-editor__content__grid--col-2">
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="website">Webseite-Link</label>
-                <input
-                  type="text"
-                  id="website"
-                  value={personalCurrent.website}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-editor__content__input-label-flex">
-                <label htmlFor="linkedin">LinkedIn-Profil-Link</label>
-                <input
-                  type="text"
-                  id="linkedin"
-                  value={personalCurrent.linkedin}
-                  onChange={handleChange}
-                />
-              </div>
+              {useFieldInput({
+                id: "website",
+                label: "Webseite-Link",
+                value: personalCurrent.website,
+                onChange: handleChange,
+              })}
+              {useFieldInput({
+                id: "linkedin",
+                label: "LinkedIn-Profil-Link",
+                value: personalCurrent.linkedin,
+                onChange: handleChange,
+              })}
             </div>
           </div>
         </form>

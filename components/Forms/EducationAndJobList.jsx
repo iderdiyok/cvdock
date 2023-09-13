@@ -1,18 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-
+import useFieldInput from "../../hooks/useFieldInput";
 import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { theme, modules } from "quillOptions";
-
-function FieldInput({ id, label, value, onChange }) {
-  return (
-    <div className="form-editor__content__input-label-flex">
-      <label htmlFor={id}>{label}</label>
-      <input type="text" id={id} value={value} onChange={onChange} />
-    </div>
-  );
-}
 
 export default function EducationAndJobList({
   field1,
@@ -42,39 +33,39 @@ export default function EducationAndJobList({
   return (
     <section className="form-editor__content">
       <div className="form-editor__content__grid--col-2">
-        <FieldInput
-          id="start_date"
-          label="Startdatum"
-          value={currentData?.start_date}
-          onChange={handleChange}
-        />
-        <FieldInput
-          id="end_date"
-          label="Enddatum"
-          value={currentData?.end_date}
-          onChange={handleChange}
-        />
+        {useFieldInput({
+          id: "start_date",
+          label: "Startdatum",
+          value: currentData?.start_date,
+          onChange: handleChange,
+        })}
+        {useFieldInput({
+          id: "end_date",
+          label: "Enddatum",
+          value: currentData?.end_date,
+          onChange: handleChange,
+        })}
       </div>
       <div className="form-editor__content__grid--col-2">
-        <FieldInput
-          id={field1_id}
-          label={field1}
-          value={currentData[field1_id]}
-          onChange={handleChange}
-        />
-        <FieldInput
-          id="city"
-          label="Stadt"
-          value={currentData?.city}
-          onChange={handleChange}
-        />
+        {useFieldInput({
+          id: field1_id,
+          label: field1,
+          value: currentData[field1_id],
+          onChange: handleChange,
+        })}
+        {useFieldInput({
+          id: "city",
+          label: "Stadt",
+          value: currentData?.city,
+          onChange: handleChange,
+        })}
       </div>
-      <FieldInput
-        id={field2_id}
-        label={field2}
-        value={currentData[field2_id]}
-        onChange={handleChange}
-      />
+      {useFieldInput({
+        id: field2_id,
+        label: field2,
+        value: currentData[field2_id],
+        onChange: handleChange,
+      })}
       <div className="form-editor__content__text-area">
         <div className="form-editor__content__input-label-flex">
           <label htmlFor="description">Beschreibung</label>

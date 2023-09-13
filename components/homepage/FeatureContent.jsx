@@ -39,8 +39,8 @@ export default function FeatureContent({ onBuild }) {
   ];
 
   const cardItem = {
-    hidden: { scale: 0, top: 100 },
-    show: { scale: 1, top: 10, transition: { ease: "easeOut", duration: 0.5 } },
+    hidden: { scale: 0, top: 30 },
+    show: { scale: 1, top: 5, transition: { ease: "easeOut", duration: 0.3 } },
   };
   const imageItem = {
     hidden: { y: 10, opacity: 0 },
@@ -72,7 +72,7 @@ export default function FeatureContent({ onBuild }) {
       >
         {items.map((item, index) => (
           <div key={index}>
-            <Parallax speed={index * 10}>
+            <Parallax speed={index * 5}>
               <motion.div
                 className="card"
                 whileHover={{ scale: 1.05 }}

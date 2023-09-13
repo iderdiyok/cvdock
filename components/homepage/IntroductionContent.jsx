@@ -21,7 +21,7 @@ export default function IntroductionContent() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.015,
+        staggerChildren: 0.004,
         delayChildren: 0.01,
       },
     },
