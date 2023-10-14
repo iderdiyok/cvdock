@@ -9,13 +9,13 @@
   grid-template-columns: 1.4fr 3fr;
   gap: 2em;
   color: #333;
-  @media print{
-      margin: 0;
-      height: 296mm;
-      page-break-after: always;
-      page-break-inside: avoid;
+  @media print {
+    margin: 0;
+    height: 296mm;
+    page-break-after: always;
+    page-break-inside: avoid;
   }
-  
+
   h4 {
     margin-top: 3em;
     font-size: 1.2em;
@@ -65,13 +65,16 @@
         align-items: center;
         gap: 1em;
       }
+      .label:last-of-type {
+        align-items: start;
+      }
     }
   }
   .education-and-job {
     margin: 1em 0;
 
     .text-block {
-      margin: .5em 0;
+      margin: 0.5em 0;
       width: 93%;
       p {
         margin: 0;
