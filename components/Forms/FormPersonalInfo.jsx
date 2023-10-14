@@ -171,7 +171,7 @@ export default function FormPersonalInfo({ past }) {
               </div>
               <div className="form-editor__content__grid--col-2">
                 {useFieldInput({
-                  id: "e-mail",
+                  id: "email",
                   label: "E-Mail",
                   value: personalCurrent.email,
                   onChange: handleChange,
