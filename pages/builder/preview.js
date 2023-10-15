@@ -13,7 +13,7 @@ export default function preview() {
   const componentRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Redux store data
   const resumeData = useSelector((state) => state.data);
 
@@ -42,6 +42,18 @@ export default function preview() {
   // Array mit null-Werten, um die Komponenten zu erstellen
   const componentArray = new Array(numComponents).fill(null);
 
+  function exportJson(data) {
+    const jsonData = JSON.stringify(data);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = href;
+    link.download = "cvdock.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -68,7 +80,10 @@ export default function preview() {
           </span>
         </div>
         <div className="button-box" style={{ width: "25%" }}>
-          <span className="button-box__link" onClick={exportJson}>
+          <span
+            className="button-box__link"
+            onClick={() => exportJson(resumeData)}
+          >
             <Icon
               icon="mdi:code-json"
               style={{ width: "20%", height: "20%" }}
@@ -79,17 +94,4 @@ export default function preview() {
       </div>
     </Layout>
   );
-}
-
-function exportJson() {
-  const data = useSelector((state) => state.data);
-  const jsonData = JSON.stringify(data);
-  const blob = new Blob([jsonData], { type: "application/json" });
-  const href = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = href;
-  link.download = "cvdock.json";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 }
