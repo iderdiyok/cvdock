@@ -11,8 +11,22 @@ import Experience from "./Experience";
 import Skills from "./Skills";
 
 export default function Elegant({ pageNum }) {
+  console.log({ pageNum });
+
   // Redux store data
   const resumeData = useSelector((state) => state.data);
+  console.log(resumeData);
+  const educationCount = resumeData.educations.length * 3;
+  const jobCount = resumeData.jobs.some((job) =>
+    job.hasOwnProperty("description")
+  )
+    ? resumeData.jobs.length * 6
+    : resumeData.jobs.length * 3;
+  const skillCount = resumeData.skills.length * 2;
+  const totalEntries = educationCount + jobCount + skillCount;
+  console.log({ educationCount });
+  console.log({ jobCount });
+  console.log({ skillCount });
 
   useEffect(() => {
     // Schriftarten einbetten
@@ -38,8 +52,9 @@ export default function Elegant({ pageNum }) {
   }, []);
 
   // Anzahl der Einträge pro Seite
-  const entriesPerPage = 2;
+  const entriesPerPage = 4;
 
+  //#TODO: Das Slicen soll in Abhängikeit der Zeilen von maximal 32 erfolgen.
   // Bildungseinträge auf dieser Seite
   const educationEntries = resumeData?.educations?.slice(
     (pageNum - 1) * entriesPerPage,
@@ -52,6 +67,9 @@ export default function Elegant({ pageNum }) {
     pageNum * entriesPerPage
   );
 
+  console.log({ totalEntries });
+
+  console.log({ pageNum });
   return (
     <>
       {resumeData && (
@@ -65,9 +83,21 @@ export default function Elegant({ pageNum }) {
             <Contact personal={resumeData.personal} />
           </div>
           <div className="education-and-job">
-            <Education educations={educationEntries} />
-            <Experience jobs={jobEntries} />
-            {pageNum === 2 && <Skills skills={resumeData.skills} />}
+            {totalEntries > 29 ? (
+              <>
+                <Education educations={educationEntries} />
+                <Experience jobs={jobEntries} />
+
+                {pageNum === 2 && <Skills skills={resumeData.skills} />}
+              </>
+            ) : (
+              <>
+                <Education educations={educationEntries} />
+                <Experience jobs={jobEntries} />
+
+                {pageNum === 1 && <Skills skills={resumeData.skills} />}
+              </>
+            )}
           </div>
         </div>
       )}
