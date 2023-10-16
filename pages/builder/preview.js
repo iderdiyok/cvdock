@@ -28,11 +28,19 @@ export default function preview() {
 
   const MAX_COMPONENTS = 1000; // maximale Anzahl von Komponenten
 
-  // Anzahl der Komponenten, die benötigt werden, um den Inhalt anzuzeigen
-  const numComponents =
-    Math.ceil((resumeData.educations?.length ?? 0) / 2) +
-    Math.ceil((resumeData.jobs?.length ?? 0) / 2);
+  const educationCount = resumeData.educations.length * 3;
+  const jobCount = resumeData.jobs.some((job) =>
+    job.hasOwnProperty("description")
+  )
+    ? resumeData.jobs.length * 6
+    : resumeData.jobs.length * 3;
+  const skillCount = resumeData.skills.length * 2;
+  const sum = educationCount + jobCount + skillCount;
 
+  // Anzahl der Komponenten, die benötigt werden, um den Inhalt anzuzeigen
+  const numComponents = sum >= 34 ? 2 : 1;
+
+  console.log({ numComponents });
   // Stellen Sie sicher, dass die Anzahl der Komponenten die maximale Größe nicht überschreitet
   if (numComponents > MAX_COMPONENTS) {
     throw new Error(
