@@ -75,6 +75,19 @@
 }
 
 .faq {
+  .bg-container {
+    position: relative;
+    height: 300px;
+    margin: auto;
+  h1 {
+    color: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px;
+    font-size: 60px;
+  }
+}
   .content {
     // display: grid;
     // grid-template-columns: 1fr 1fr;
@@ -171,7 +184,6 @@
         margin: 0;
       }
       h2 {
-        font-family: '__Outfit_cf2c97', '__Outfit_Fallback_cf2c97';
         font-size: 1.5rem;
       }
       p {

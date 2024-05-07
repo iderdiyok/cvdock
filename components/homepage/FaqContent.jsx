@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ParallaxBanner } from "react-scroll-parallax";
 
 export default function FaqContent() {
   const [activeSection, setActiveSection] = useState(0);
@@ -9,10 +10,21 @@ export default function FaqContent() {
 
   return (
     <section className="faq container">
-      <div className="subtitle">
-        <h1>Frequently Asked Questions</h1>
-        <h3>Antworten auf Ihre Fragen</h3>
-      </div>
+      <ParallaxBanner
+        layers={[
+          { image: '/img/pattern.svg', speed: -10 },
+          {
+            speed: -15,
+            children: (
+            <div className="subtitle">
+              <h1>Frequently Asked Questions</h1>
+              <h3>Antworten auf Ihre Fragen</h3>
+            </div>
+            ),
+          }
+        ]}
+        className="bg-container"
+      ></ParallaxBanner>
 
       <div className="content">
         <article className="info">
@@ -94,7 +106,7 @@ export default function FaqContent() {
         </article>
       </div>
       <div className="subTitle" style={{textAlign: "center", marginBottom: "5em"}}>
-        <h2 style={{fontFamily: "'__Outfit_cf2c97', '__Outfit_Fallback_cf2c97'"}}>Haben Sie noch weitere Fragen? <a href="#">Kontaktiere uns.</a> </h2>
+        <h2 className="txt-bold">Haben Sie noch weitere Fragen? <a href="#">Kontaktiere uns.</a> </h2>
       </div>
     </section>
   );

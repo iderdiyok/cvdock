@@ -49,7 +49,6 @@ export default function FeatureContent({ onBuild }) {
 
   const controls = useAnimation();
   const [ref, inView] = useInView();
-
   useEffect(() => {
     if (inView) {
       controls.start("show");
@@ -58,13 +57,12 @@ export default function FeatureContent({ onBuild }) {
 
   return (
     <section className="feature">
-      <div className="subtitle">
+      <div className="subtitle" ref={ref}>
         <h1>Erstellen Sie Ihren Lebenslauf in wenigen Minuten.</h1>
       </div>
 
       <motion.div
         variants={cardItem}
-        ref={ref}
         initial="hidden"
         animate={controls}
         className="grid container"
@@ -72,7 +70,7 @@ export default function FeatureContent({ onBuild }) {
       >
         {items.map((item, index) => (
           <div key={index}>
-            <Parallax speed={index * 5}>
+            {/* <Parallax speed={index * 5}> */}
               <motion.div
                 className="card"
                 whileHover={{ scale: 1.05 }}
@@ -85,10 +83,10 @@ export default function FeatureContent({ onBuild }) {
                 >
                   <Image src={item.image} alt="Parallax" />
                 </motion.div>
-                <h2>{item.title}</h2>
+                <h2 className="txt-bold">{item.title}</h2>
                 <p>{item.description}</p>
               </motion.div>
-            </Parallax>
+            {/* </Parallax> */}
           </div>
         ))}
       </motion.div>

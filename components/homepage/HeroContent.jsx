@@ -16,6 +16,7 @@ export default function HeroContent({ onBuild }) {
         </div>
       </section>
       <section className="cvdock_3D"></section>
+      {/* <spline-viewer url="https://prod.spline.design/HuEP58V6BpKb9S60/scene.splinecode"></spline-viewer> */}
     </header>
   );
 }

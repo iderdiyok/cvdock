@@ -9,9 +9,11 @@ import {
   updateHobbys,
 } from "../store";
 
+// Function for importing JSON data for the Builder
 export default function AddJsonFile() {
   const dispatch = useDispatch();
 
+  // Function to open the file selection dialog when clicked
   const importJsonClick = () => {
     document.getElementById("fileInput").click();
   };
@@ -21,18 +23,24 @@ export default function AddJsonFile() {
     localStorage.setItem(storageKey, JSON.stringify(data));
   };
 
+  // Read selected file and parse JSON data
+  // Then store the data in Redux store and localStorage
   const addJsonData = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
-      const data = JSON.parse(e.target.result);
-
-      handleDataUpdate(updatePersonal, { ...data.personal, avatar: "" }, "personalData");
-      handleDataUpdate(updateEducations, data.educations, "educationData");
-      handleDataUpdate(updateJobs, data.jobs, "jobData");
-      handleDataUpdate(updateSkills, data.skills, "skillsData");
-      handleDataUpdate(updateLanguages, data.languages, "languageData");
-      handleDataUpdate(updateHobbys, data.hobbys, "hobbysData");
+      try {
+        const data = JSON.parse(e.target.result);
+        
+        handleDataUpdate(updatePersonal, { ...data.personal, avatar: "" }, "personalData");
+        handleDataUpdate(updateEducations, data.educations, "educationData");
+        handleDataUpdate(updateJobs, data.jobs, "jobData");
+        handleDataUpdate(updateSkills, data.skills, "skillsData");
+        handleDataUpdate(updateLanguages, data.languages, "languageData");
+        handleDataUpdate(updateHobbys, data.hobbys, "hobbysData");
+      } catch (error) {
+        console.error("Error parsing JSON data:", error);
+      }
     };
     reader.readAsText(file);
   };

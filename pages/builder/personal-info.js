@@ -7,6 +7,8 @@ import AddJsonFile from "@/components/AddJsonFile";
 import useDisplaySize from "@/hooks/useDisplaySize";
 import { useRouter } from "next/router";
 
+// Dynamic import of the "FormPersonalInfo" form for the Builder module
+// SSR is disabled to ensure the form is only rendered client-side
 const FormPersonalInfo = dynamic(
   () => import("@/components/Forms/FormPersonalInfo"),
   {

@@ -23,12 +23,13 @@ function MyApp({ Component, pageProps }) {
           gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
         `}
       </Script>
+      <Script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.497/build/spline-viewer.js"></Script>
       <style jsx global>
         {`
           html {
             font-family: ${outfitRegular.style.fontFamily};
           }
-          h1 {
+          h1, .txt-bold {
             font-family: ${outfitBold.style.fontFamily};
           }
           h2,

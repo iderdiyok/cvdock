@@ -1,12 +1,15 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 
+// Component for the progress bar of the Builder module
+// The bar indicates the user's progress in filling out the form
 export default function BuilderProgressBar({
   width,
   education = false,
   job = false,
   skills = false,
 }) {
+  // CSS classes for the progress indicators depending on whether they are active or not
   const cssClassesEducation = `progress-bar__icon ${
     education ? "progress-bar__icon--active" : ""
   }`;

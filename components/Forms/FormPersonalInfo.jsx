@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePersonal } from "../../store";
 import useFieldInput from "../../hooks/useFieldInput";
@@ -19,6 +19,7 @@ export default function FormPersonalInfo({ past }) {
   // Store data in localStorage
   const storedPersonalData = JSON.parse(localStorage.getItem("personalData"));
 
+  // States and effects for managing the form and data
   const initialPersonalData = useSelector((state) => state.data.personal);
   const [personalCurrent, updatePersonalCurrent] =
     useState(initialPersonalData);
@@ -66,12 +67,12 @@ export default function FormPersonalInfo({ past }) {
     setCroppedImageFor(id);
   };
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     updatePersonalCurrent({
       ...personalCurrent,
       [e.currentTarget.id]: e.currentTarget.value,
     });
-  };
+  }, [personalCurrent]);
 
   const handleSubmit = (e, past = false) => {
     e.preventDefault();
